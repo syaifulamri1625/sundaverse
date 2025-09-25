@@ -1,54 +1,2296 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SUNDAVERSE - Index</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNDAVERSE - Prompt Generator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1f2937;
+        }
+        .bg-gradient-sunda {
+            background: linear-gradient(135deg, #1f2937, #4b5563);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #fde68a, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-sunda {
+            background-color: #2c3a4a;
+            border: 1px solid #4a5568;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-control, .form-select {
+            background-color: #3b4553;
+            color: #d1d5db;
+            border: 1px solid #4a5568;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #3b4553;
+            color: #d1d5db;
+            border-color: #f97316;
+            box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25);
+        }
+        .prompt-box {
+            min-height: 150px;
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 2.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .shotlist-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .shotlist-table th, .shotlist-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #4a5568;
+            border-right: 1px solid #4a5568;
+        }
+        .shotlist-table th:last-child, .shotlist-table td:last-child {
+            border-right: none;
+        }
+        .shotlist-table th {
+            background-color: #3b4553;
+            color: #fde68a;
+            font-weight: bold;
+        }
+        .shotlist-table tr:nth-child(even) {
+            background-color: #2c3a4a;
+        }
+        .shotlist-table tr:nth-child(odd) {
+            background-color: #1f2937;
+        }
+        .storyboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .storyboard-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .storyboard-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .chat-container {
+            height: 500px;
+            overflow-y: auto;
+            border-radius: 0.5rem;
+            background-color: #1f2937;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .chat-message {
+            max-width: 85%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+        }
+        .chat-message.user {
+            background-color: #f97316;
+            align-self: flex-end;
+            text-align: right;
+            border-bottom-right-radius: 0;
+        }
+        .chat-message.ai {
+            background-color: #4b5563;
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+    </style>
 </head>
 <body class="text-white bg-gradient-sunda">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold text-gradient" href="index.html">SUNDAVERSE</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link" href="features.html">Fitur</a></li>
-        <li class="nav-item"><a class="nav-link" href="ai-assistant.html">Asisten AI</a></li>
-        <li class="nav-item"><a class="nav-link" href="generator.html">Generator</a></li>
-        <li class="nav-item"><a class="nav-link" href="script.html">Lembar Naskah</a></li>
-        <li class="nav-item"><a class="nav-link" href="storyboard.html">Storyboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="audio.html">Audio</a></li>
-        <li class="nav-item"><a class="nav-link" href="video.html">Video</a></li>
-        <li class="nav-item"><a class="nav-link" href="script-analysis.html">Analisis</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Proyek</a></li>
-        <li class="nav-item"><a class="nav-link" href="legend.html">Legenda</a></li>
-        <li class="nav-item"><a class="nav-link" href="resources.html">Sumber Daya</a></li>
-        <li class="nav-item"><a class="nav-link" href="crew.html">Kru & Aktor</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Kontak</a></li>
-      </ul>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-gradient" href="#">SUNDAVERSE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#hero-section" data-lang-key="nav-home">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features-section" data-lang-key="nav-features">Fitur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ai-assistant-section" data-lang-key="nav-assistant">Asisten AI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#generator-section" data-lang-key="nav-generator">Generator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#script-section" data-lang-key="nav-script">Lembar Kerja Naskah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#shotlist-section" data-lang-key="nav-storyboard">Storyboard Visual</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#audio-section" data-lang-key="nav-audio">Audio/Musik</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#video-section" data-lang-key="nav-video">Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#script-analysis-section" data-lang-key="nav-script-analysis">Analisis Naskah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#project-dashboard-section" data-lang-key="nav-projects">Proyek Saya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#story-section" data-lang-key="nav-legend">Pustaka Legenda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#filmmaker-resources-section" data-lang-key="nav-resources">Sumber Daya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#crew-section" data-lang-key="nav-crew">Pustaka Kru & Aktor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact-section" data-lang-key="nav-contact">Kontak</a>
+                    </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe"></i> <span id="current-lang-text">ID</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" data-lang="id">Bahasa Indonesia</a></li>
+                            <li><a class="dropdown-item" href="#" data-lang="su">Basa Sunda</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero-section" class="py-5 text-center text-white">
+        <div class="container py-5">
+            <h1 class="display-3 fw-bold text-gradient" data-lang-key="hero-title">Ciptakan Dunia Sunda Anda</h1>
+            <p class="fs-4 lead my-4" data-lang-key="hero-subtitle">
+                SUNDAVERSE: Pustaka digital interaktif yang memadukan mitos, arsitektur, musik, dan atmosfer Sunda untuk para pembuat film dan konten.
+            </p>
+            <a href="#generator-section" class="btn btn-warning btn-lg px-5 mt-3 shadow-sm rounded-pill" data-lang-key="hero-cta">Mulai Sekarang</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features-section" class="py-5 bg-dark">
+        <div class="container text-center">
+            <h2 class="text-white mb-5 display-5 fw-bold" data-lang-key="features-title">Fitur Unggulan</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card card-sunda h-100 p-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning fw-bold" data-lang-key="feat-ai-title">Kecerdasan AI</h5>
+                            <p class="card-text text-white-50" data-lang-key="feat-ai-desc">Menggunakan model bahasa besar untuk menciptakan prompt yang imajinatif dan terperinci.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-sunda h-100 p-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning fw-bold" data-lang-key="feat-web-title">Pencarian Web Dinamis</h5>
+                            <p class="card-text text-white-50" data-lang-key="feat-web-desc">Menarik data dari web, berita, dan media sosial untuk prompt yang relevan dan terkini.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-sunda h-100 p-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning fw-bold" data-lang-key="feat-culture-title">Konten Budaya Otentik</h5>
+                            <p class="card-text text-white-50" data-lang-key="feat-culture-desc">Fokus pada mitos, arsitektur, musik, dan atmosfer asli Sunda untuk kekayaan visual.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Section -->
+    <section id="ai-assistant-section" class="py-5">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="ai-title">Asisten AI SUNDAVERSE</h2>
+                    <p class="text-white-50 mb-4 text-center" data-lang-key="ai-desc">
+                        Tanya apa saja tentang ide film Anda. Asisten AI kami siap membantu Anda!
+                    </p>
+                    <div class="chat-container mb-4" id="chatContainer">
+                        <div class="chat-message ai" data-lang-key="chat-welcome">Halo! Saya Asisten AI SUNDAVERSE. Saya dapat membantu Anda dengan ide-ide film, riset karakter, lokasi, dan banyak lagi. Apa yang bisa saya bantu hari ini?</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <input type="text" id="chatInput" class="form-control rounded-pill" data-lang-placeholder="chat-input" placeholder="Ketik pesan Anda di sini...">
+                        <button id="chatSendBtn" class="btn btn-warning rounded-pill px-4" data-lang-key="chat-send-btn">Kirim</button>
+                    </div>
+                    <div id="chatLoading" class="text-center text-white-50 fst-italic mt-3" style="display: none;" data-lang-key="chat-loading">Asisten sedang berpikir...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prompt Generator Section -->
+    <section id="generator-section" class="py-5">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="prompt-generator-title">Generator Prompt</h2>
+                    
+                    <!-- User Input Section -->
+                    <div class="mb-4">
+                        <label for="userPrompt" class="form-label text-white-50" data-lang-key="user-prompt-label">Ide Prompt Anda (opsional)</label>
+                        <textarea id="userPrompt" class="form-control rounded-lg" rows="3" data-lang-placeholder="user-prompt-placeholder" placeholder="Ketikkan ide Anda di sini, misalnya 'Pertarungan antara Sangkuriang dan Dayang Sumbi'..."></textarea>
+                    </div>
+
+                    <!-- Prompt Builder Section -->
+                    <div class="row g-4">
+                        <!-- Category: Visual Style -->
+                        <div class="col-md-6">
+                            <label for="visualStyle" class="form-label text-white-50" data-lang-key="style-label">Gaya Visual</label>
+                            <select id="visualStyle" class="form-select rounded-lg" data-lang-options-group="visualStyle">
+                                <option value="">Pilih Gaya...</option>
+                                <option value="Realisme Fotografi">Realisme Fotografi</option>
+                                <option value="Seni Rupa Tradisional Sunda">Seni Rupa Tradisional Sunda</option>
+                                <option value="Gaya Lukisan Tradisional Jawa Barat">Gaya Lukisan Tradisional Jawa Barat</option>
+                                <option value="Sinematik Dramatis">Sinematik Dramatis</option>
+                                <option value="Fantasi Epik">Fantasi Epik</option>
+                                <option value="Retro Klasik">Retro Klasik</option>
+                                <option value="Gaya Ghibli">Gaya Ghibli</option>
+                                <option value="Sinematik Noir">Sinematik Noir</option>
+                                <option value="Anime/Manga Style">Anime/Manga Style</option>
+                                <option value="Gaya Fotografi Dokumenter">Gaya Fotografi Dokumenter</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Category: Characters -->
+                        <div class="col-md-6">
+                            <label for="characters" class="form-label text-white-50" data-lang-key="characters-label">Tokoh/Makhluk Mitos</label>
+                            <select id="characters" class="form-select rounded-lg" data-lang-options-group="characters">
+                                <option value="">Pilih Tokoh...</option>
+                                <option value="Ciung Wanara">Ciung Wanara</option>
+                                <option value="Sangkuriang">Sangkuriang</option>
+                                <option value="Lutung Kasarung">Lutung Kasarung</option>
+                                <option value="Nyai Bagendit">Nyai Bagendit</option>
+                                <option value="Prabu Siliwangi">Prabu Siliwangi</option>
+                                <option value="Kidang Kencana">Kidang Kencana</option>
+                                <option value="Nyi Blorong">Nyi Blorong</option>
+                                <option value="Ular N'Daun">Ular N'Daun</option>
+                                <option value="Siluman Buaya Putih">Siluman Buaya Putih</option>
+                                <option value="Kuntilanak">Kuntilanak</option>
+                                <option value="Jurig">Jurig</option>
+                                <option value="Nyi Roro Kidul">Nyi Roro Kidul</option>
+                                <option value="Siluman">Siluman</option>
+                                <option value="Maung Siliwangi">Maung Siliwangi</option>
+                                <option value="Dewi Sri">Dewi Sri</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Category: Setting -->
+                        <div class="col-md-6">
+                            <label for="setting" class="form-label text-white-50" data-lang-key="setting-label">Latar/Lokasi</label>
+                            <select id="setting" class="form-select rounded-lg" data-lang-options-group="setting">
+                                <option value="">Pilih Latar...</option>
+                                <option value="Gunung Tangkuban Parahu">Gunung Tangkuban Parahu</option>
+                                <option value="Hutan Angker">Hutan Angker</option>
+                                <option value="Curug (Air Terjun)">Curug (Air Terjun)</option>
+                                <option value="Desa Tradisional Sunda">Desa Tradisional Sunda</option>
+                                <option value="Pura">Pura</option>
+                                <option value="Sawah Terasering">Sawah Terasering</option>
+                                <option value="Kerajaan Galuh">Kerajaan Galuh</option>
+                                <option value="Telaga Warna">Telaga Warna</option>
+                                <option value="Situ Bagendit">Situ Bagendit</option>
+                                <option value="Gunung Ciremai">Gunung Ciremai</option>
+                                <option value="Sungai Citarum">Sungai Citarum</option>
+                                <option value="Hutan Sancang">Hutan Sancang</option>
+                                <option value="Istana Laut Selatan">Istana Laut Selatan</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Category: Atmosphere -->
+                        <div class="col-md-6">
+                            <label for="atmosphere" class="form-label text-white-50" data-lang-key="atmosphere-label">Atmosfer/Emosi</label>
+                            <select id="atmosphere" class="form-select rounded-lg" data-lang-options-group="atmosphere">
+                                <option value="">Pilih Atmosfer...</option>
+                                <option value="Misterius dan Magis">Misterius dan Magis</option>
+                                <option value="Damai dan Sakral">Damai dan Sakral</option>
+                                <option value="Penuh Haru dan Melankolis">Penuh Haru dan Melankolis</option>
+                                <option value="Megah dan Penuh Kekuasaan">Megah dan Penuh Kekuasaan</option>
+                                <option value="Tegang dan Penuh Ancaman">Tegang dan Penuh Ancaman</option>
+                                <option value="Gembira dan Penuh Warna">Gembira dan Penuh Warna</option>
+                                <option value="Mencekam dan Penuh Misteri">Mencekam dan Penuh Misteri</option>
+                                <option value="Romantis dan Indah">Romantis dan Indah</option>
+                            </select>
+                        </div>
+
+                        <!-- Category: Music -->
+                        <div class="col-md-6">
+                            <label for="music" class="form-label text-white-50" data-lang-key="music-label">Musik Latar</label>
+                            <select id="music" class="form-select rounded-lg" data-lang-options-group="music">
+                                <option value="">Pilih Musik...</option>
+                                <option value="Gamelan Degung">Gamelan Degung</option>
+                                <option value="Kacapi Suling">Kacapi Suling</option>
+                                <option value="Karinding">Karinding</option>
+                                <option value="Rebab dan Seruling">Rebab dan Seruling</option>
+                                <option value="Angklung Udjo">Angklung Udjo</option>
+                                <option value="Reak">Reak</option>
+                                <option value="Calung">Calung</option>
+                                <option value="Degung Rampak">Degung Rampak</option>
+                                <option value="Suling Bambu">Suling Bambu</option>
+                            </select>
+                        </div>
+
+                        <!-- Category: Camera Technique -->
+                        <div class="col-md-6">
+                            <label for="camera" class="form-label text-white-50" data-lang-key="camera-label">Teknik Kamera</label>
+                            <select id="camera" class="form-select rounded-lg" data-lang-options-group="camera">
+                                <option value="">Pilih Teknik...</option>
+                                <option value="Wide Shot Sinematik">Wide Shot Sinematik</option>
+                                <option value="Close-Up Dramatis">Close-Up Dramatis</option>
+                                <option value="Dolly Zoom">Dolly Zoom</option>
+                                <option value="Slow Motion">Slow Motion</option>
+                                <option value="Jitter Camera">Jitter Camera</option>
+                                <option value="Handheld Camera">Handheld Camera</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-column flex-md-row gap-3 mt-5">
+                        <button id="generateBtn" class="btn btn-warning fw-bold flex-grow-1 rounded-pill py-3 shadow" data-lang-key="generate-btn">
+                            Generate Prompt
+                        </button>
+                        <button id="copyBtn" class="btn btn-secondary fw-bold flex-grow-1 rounded-pill py-3 shadow" data-lang-key="copy-btn">
+                            Salin Prompt
+                        </button>
+                    </div>
+
+                    <!-- Generated Prompt Area -->
+                    <div class="mt-5">
+                        <h3 class="text-white mb-3 fw-bold" data-lang-key="result-title">Hasil Prompt</h3>
+                        <div id="loading" class="text-center text-white-50 fst-italic mb-3" style="display: none;" data-lang-key="loading-prompt">Sedang memproses...</div>
+                        <div id="notification" class="alert alert-success text-center" role="alert" style="display: none;" data-lang-key="copy-success">Prompt berhasil disalin!</div>
+                        
+                        <div class="row g-4">
+                            <!-- Indonesian Output (Editable) -->
+                            <div class="col-md-6">
+                                <h4 class="text-white-50 mb-3" data-lang-key="id-version">Versi Indonesia</h4>
+                                <textarea id="promptOutput" class="form-control prompt-box rounded-lg" rows="15" data-lang-placeholder="prompt-placeholder" placeholder="Prompt akan muncul di sini setelah Anda mengklik 'Generate Prompt'..."></textarea>
+                            </div>
+                            <!-- English Output (Read-only) -->
+                            <div class="col-md-6">
+                                <h4 class="text-white-50 mb-3" data-lang-key="en-version">Versi Inggris (Final)</h4>
+                                <textarea id="promptOutputEnglish" class="form-control prompt-box rounded-lg" rows="15" readonly data-lang-placeholder="prompt-placeholder-en" placeholder="Terjemahan prompt ke Bahasa Inggris akan muncul di sini..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script Generator Section -->
+    <section id="script-section" class="py-5 bg-dark">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="script-title">Pembuat Lembar Kerja Naskah</h2>
+                    <p class="text-white-50 mb-4" data-lang-key="script-desc">
+                        Tuliskan ide cerita singkat dan genre, dan biarkan SUNDAVERSE mengubahnya menjadi lembar kerja naskah yang terperinci.
+                    </p>
+                    
+                    <div class="mb-4">
+                        <label for="scriptIdea" class="form-label text-white-50" data-lang-key="script-idea-label">Ide Cerita Singkat</label>
+                        <textarea id="scriptIdea" class="form-control rounded-lg" rows="3" data-lang-placeholder="script-idea-placeholder" placeholder="Contoh: Sangkuriang kembali ke Gunung Tangkuban Parahu untuk menantang ayahnya."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                         <label for="scriptGenre" class="form-label text-white-50" data-lang-key="script-genre-label">Genre</label>
+                         <select id="scriptGenre" class="form-select rounded-lg" data-lang-options-group="scriptGenre">
+                            <option value="">Pilih Genre...</option>
+                            <option value="Drama Epik">Drama Epik</option>
+                            <option value="Fantasi Petualangan">Fantasi Petualangan</option>
+                            <option value="Misteri Thriller">Misteri Thriller</option>
+                            <option value="Horor">Horor</option>
+                            <option value="Romantis">Romantis</option>
+                         </select>
+                    </div>
+
+                    <button id="generateScriptBtn" class="btn btn-warning fw-bold rounded-pill py-3 shadow w-100" data-lang-key="generate-script-btn">
+                        Buat Lembar Kerja Naskah
+                    </button>
+
+                    <div class="mt-5">
+                        <h3 class="text-white mb-3 fw-bold" data-lang-key="script-result-title">Hasil Lembar Kerja</h3>
+                        <div id="loadingScript" class="text-center text-white-50 fst-italic mb-3" style="display: none;" data-lang-key="loading-script">Sedang membuat lembar kerja naskah...</div>
+                        <div id="scriptOutputContainer" class="table-responsive">
+                            <!-- Script table will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shotlist Generator Section -->
+    <section id="shotlist-section" class="py-5">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="storyboard-title">Pembuat Storyboard Visual</h2>
+                    <p class="text-white-50 mb-4" data-lang-key="storyboard-desc">
+                        Masukkan ide adegan singkat dan biarkan SUNDAVERSE mengubahnya menjadi serangkaian sketsa storyboard visual.
+                    </p>
+
+                    <div class="mb-4">
+                        <label for="sceneIdea" class="form-label text-white-50" data-lang-key="scene-idea-label">Ide Adegan Singkat</label>
+                        <textarea id="sceneIdea" class="form-control rounded-lg" rows="3" data-lang-placeholder="scene-idea-placeholder" placeholder="Contoh: Sangkuriang melarikan diri dari Dayang Sumbi di atas bukit Tangkuban Parahu."></textarea>
+                    </div>
+                    
+                    <button id="generateShotlistBtn" class="btn btn-warning fw-bold rounded-pill py-3 shadow w-100" data-lang-key="generate-storyboard-btn">
+                        Buat Storyboard Visual
+                    </button>
+
+                    <div class="mt-5">
+                        <h3 class="text-white mb-3 fw-bold" data-lang-key="storyboard-result-title">Hasil Storyboard</h3>
+                        <div id="loadingShotlist" class="text-center text-white-50 fst-italic mb-3" style="display: none;" data-lang-key="loading-storyboard">Sedang membuat storyboard... Ini mungkin membutuhkan waktu beberapa saat.</div>
+                        <div id="shotlistOutputContainer" class="storyboard-grid">
+                            <!-- Storyboard images will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Audio/Music Generator Section -->
+    <section id="audio-section" class="py-5 bg-dark">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="audio-title">Pembuat Audio/Musik</h2>
+                    <p class="text-white-50 mb-4" data-lang-key="audio-desc">
+                        Tuliskan ide adegan singkat Anda di bawah ini, dan biarkan SUNDAVERSE menciptakan audio latar yang sesuai.
+                    </p>
+                    <div class="mb-4">
+                        <label for="audioIdea" class="form-label text-white-50" data-lang-key="audio-idea-label">Ide Adegan Singkat</label>
+                        <textarea id="audioIdea" class="form-control rounded-lg" rows="3" data-lang-placeholder="audio-idea-placeholder" placeholder="Contoh: Sangkuriang melarikan diri dari Dayang Sumbi di atas bukit Tangkuban Parahu."></textarea>
+                    </div>
+                    <button id="generateAudioBtn" class="btn btn-warning fw-bold rounded-pill py-3 shadow w-100" data-lang-key="generate-audio-btn">
+                        Buat Audio Latar
+                    </button>
+                    <div class="mt-5">
+                        <h3 class="text-white mb-3 fw-bold" data-lang-key="audio-result-title">Hasil Audio</h3>
+                        <div id="loadingAudio" class="text-center text-white-50 fst-italic mb-3" style="display: none;" data-lang-key="loading-audio">Sedang membuat audio... Ini mungkin membutuhkan waktu beberapa saat.</div>
+                        <div id="audioOutputContainer">
+                            <!-- Audio player and download link will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Generator Section -->
+    <section id="video-section" class="py-5">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="video-title">Pembuat Video</h2>
+                    <p class="text-white-50 mb-4" data-lang-key="video-desc">
+                        Masukkan ide adegan singkat Anda di bawah ini, dan biarkan SUNDAVERSE menciptakan klip video yang sesuai.
+                    </p>
+                    <div class="mb-4">
+                        <label for="videoIdea" class="form-label text-white-50" data-lang-key="video-idea-label">Ide Adegan Singkat</label>
+                        <textarea id="videoIdea" class="form-control rounded-lg" rows="3" data-lang-placeholder="video-idea-placeholder" placeholder="Contoh: Pertarungan antara Ciung Wanara dan Prabu Barma Wijaya di alun-alun kerajaan."></textarea>
+                    </div>
+                    <button id="generateVideoBtn" class="btn btn-warning fw-bold rounded-pill py-3 shadow w-100" data-lang-key="generate-video-btn">
+                        Buat Video
+                    </button>
+
+                    <!-- Area untuk memilih proyek dan menyimpan -->
+                    <div id="videoSaveControls" style="display: none;" class="mt-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="videoProjectSelect" class="form-label text-white-50 mb-0" data-lang-key="save-to-project-label">Simpan ke Proyek:</label>
+                            <select id="videoProjectSelect" class="form-select"></select>
+                            <button id="saveVideoBtn" class="btn btn-success rounded-pill px-4" data-lang-key="save-btn">Simpan</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h3 class="text-white mb-3 fw-bold" data-lang-key="video-result-title">Hasil Video</h3>
+                        <div id="loadingVideo" class="text-center text-white-50 fst-italic mb-3" style="display: none;" data-lang-key="loading-video">Sedang membuat video... Ini mungkin membutuhkan waktu beberapa saat.</div>
+                        <div id="videoOutputContainer">
+                            <!-- Video player and download link will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script Analysis Section -->
+    <section id="script-analysis-section" class="py-5 bg-dark">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-white mb-4 fw-bold" data-lang-key="script-analysis-title">Analisis Naskah AI</h2>
+                    <p class="text-white-50 mb-4" data-lang-key="script-analysis-desc">
+                        Tempelkan naskah Anda di bawah ini dan biarkan AI menganalisisnya. Anda akan menerima umpan balik tentang alur cerita, karakter, dan prediksi durasi.
+                    </p>
+                    <div class="mb-4">
+                        <label for="scriptAnalysisInput" class="form-label text-white-50" data-lang-key="script-analysis-input-label">Naskah Anda</label>
+                        <textarea id="scriptAnalysisInput" class="form-control rounded-lg" rows="10" data-lang-placeholder="script-analysis-input-placeholder" placeholder="Tempelkan naskah film Anda di sini..."></textarea>
+                    </div>
+                    <button id="analyzeScriptBtn" class="btn btn-warning fw-bold rounded-pill py-3 shadow w-100" data-lang-key="analyze-script-btn">
+                        Analisis Naskah
+                    </button>
+                    <div class="mt-5">
+                        <h3 class="text-white mb-3 fw-bold" data-lang-key="script-analysis-result-title">Hasil Analisis</h3>
+                        <div id="loadingAnalysis" class="text-center text-white-50 fst-italic mb-3" style="display: none;" data-lang-key="loading-analysis">Sedang menganalisis naskah...</div>
+                        <div id="analysisOutputContainer" class="text-white-50">
+                            <!-- Analysis output will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Dashboard Section -->
+    <section id="project-dashboard-section" class="py-5">
+        <div class="container">
+            <div class="card card-sunda p-4 p-md-5">
+                <h2 class="text-white mb-4 fw-bold text-center" data-lang-key="projects-title">Manajer Proyek Pribadi</h2>
+                <p class="text-white-50 mb-4 text-center" data-lang-key="projects-desc">
+                    Buat dan kelola proyek film Anda di sini. Simpan prompt, naskah, dan aset visual untuk setiap film.
+                </p>
+                
+                <!-- Create New Project -->
+                <div class="mb-5">
+                    <h4 class="text-warning mb-3 fw-bold" data-lang-key="create-project-title">Buat Proyek Baru</h4>
+                    <div class="d-flex gap-2">
+                        <input type="text" id="newProjectName" class="form-control rounded-pill" data-lang-placeholder="new-project-placeholder" placeholder="Nama proyek, contoh: 'Film Ciung Wanara'">
+                        <button id="createProjectBtn" class="btn btn-warning rounded-pill px-4" data-lang-key="create-project-btn">Buat</button>
+                    </div>
+                    <div id="projectCreateStatus" class="mt-2"></div>
+                </div>
+                
+                <!-- My Projects List -->
+                <div class="mt-4">
+                    <h4 class="text-warning mb-3 fw-bold" data-lang-key="my-projects-title">Proyek Saya</h4>
+                    <div id="projectsList" class="list-group">
+                        <div id="loadingProjects" class="text-center text-white-50 fst-italic" data-lang-key="loading-projects">Memuat proyek...</div>
+                        <!-- Project list will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story-section" class="py-5 bg-dark">
+        <div class="container">
+            <h2 class="text-white mb-5 display-5 fw-bold text-center" data-lang-key="legend-title">Pustaka Legenda</h2>
+            <div class="card card-sunda p-4 p-md-5">
+                <div id="loadingStory" class="text-center text-white-50 fst-italic" data-lang-key="loading-story">Memuat cerita...</div>
+                <div id="story-content" class="text-white-50">
+                    <!-- Story content will be loaded here -->
+                </div>
+                <div class="text-center mt-4">
+                    <button id="loadAnotherStoryBtn" class="btn btn-outline-warning rounded-pill" data-lang-key="load-story-btn">Muat Cerita Lain</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filmmaker Resources Section -->
+    <section id="filmmaker-resources-section" class="py-5">
+        <div class="container">
+            <h2 class="text-white mb-5 display-5 fw-bold text-center" data-lang-key="resources-title">Sumber Daya untuk Filmmaker</h2>
+            <div id="filmmaker-resources-content">
+                <div id="loadingResources" class="text-center text-white-50 fst-italic" data-lang-key="loading-resources">Memuat sumber daya...</div>
+                <!-- Resources will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Crew & Actor Library Section -->
+    <section id="crew-section" class="py-5 bg-dark">
+        <div class="container">
+            <h2 class="text-white mb-5 display-5 fw-bold text-center" data-lang-key="crew-title">Pustaka Kru & Aktor</h2>
+            <div id="crew-content" class="profile-grid">
+                <div id="loadingCrew" class="text-center text-white-50 fst-italic">Memuat profil...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact-section" class="py-5">
+        <div class="container">
+            <h2 class="text-white mb-5 display-5 fw-bold text-center" data-lang-key="contact-title">Kontak</h2>
+            <div class="card card-sunda p-4 p-md-5">
+                <div class="card-body text-center">
+                    <p class="text-white-50" data-lang-key="contact-desc">
+                        Untuk pertanyaan, kolaborasi, atau masukan, silakan hubungi saya melalui media sosial di bawah ini.
+                    </p>
+                    <div class="d-flex justify-content-center gap-4 mt-4">
+                        <a href="https://www.instagram.com/amricameo" target="_blank" class="btn btn-lg btn-outline-warning rounded-pill">
+                            <i class="fab fa-instagram me-2"></i>Instagram
+                        </a>
+                        <a href="https://www.youtube.com/channel/amricameo" target="_blank" class="btn btn-lg btn-outline-warning rounded-pill">
+                            <i class="fab fa-youtube me-2"></i>YouTube
+                        </a>
+                        <a href="mailto:amricameo@example.com" class="btn btn-lg btn-outline-warning rounded-pill">
+                            <i class="fas fa-envelope me-2"></i>Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-white-50">
+        <div class="container">
+            <p>&copy; 2024 SUNDAVERSE. <span data-lang-key="footer-rights">All rights reserved.</span></p>
+            <p data-lang-key="footer-maker">Dibuat oleh SMKN 1 Gunungsindur - Kab. Bogor</p>
+            <p class="mt-2 text-sm" data-lang-key="footer-userid-label">User ID Anda: <span id="userIdDisplay" class="fw-bold">...</span></p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Chat Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/6281210110160" target="_blank" rel="noopener noreferrer" class="whatsapp-button">
+            <!-- SVG Chat Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L.055 15l4.204-1.102a7.925 7.925 0 0 0 3.792.992h.004c4.368 0 7.926-3.562 7.92-7.927-.006-1.503-.518-2.909-1.365-4.018zm-3.801 6.31c-.13-.264-.72-1.29-.873-1.424-.154-.135-.3-.124-.44.128-.14.254-.537.962-.656 1.09-.119.127-.24.136-.44.062-.2-.073-.873-.321-1.656-1.012-.614-.537-1.026-1.2-1.146-1.424-.12-.224-.01-.208.085-.35.087-.142.194-.345.29-.518.096-.174.127-.294.12-.44-.007-.14-.075-.3-.21-.44-.134-.14-.305-.382-.42-.518-.116-.135-.24-.26-.37-.268-.13-.008-.27-.008-.44.12-.174.13-.66.645-.66 1.574-.001.929.67 1.815.766 1.93.097.119 1.397 2.132 3.38 2.9.467.18 1.042.185 1.437.13.43-.053 1.29-.444 1.47-1.066.182-.622.182-.45.127-.55z"/>
+            </svg>
+        </a>
     </div>
-  </div>
-</nav>
 
-<!-- Footer -->
-<footer class="text-center py-4 text-white-50 bg-dark">
-  <div class="container">
-    <p>&copy; 2024 SUNDAVERSE. Hak cipta dilindungi.</p>
-    <p>Dibuat oleh SMKN 1 Gunungsindur - Kab. Bogor</p>
-  </div>
-</footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNuChP0T55E4o/oB/sP0yD+05O9c3g/50r1R5j+8Nf9" crossorigin="anonymous"></script>
 
+    <!-- Firebase JS SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, onSnapshot, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 
-<header class='py-5 text-center'><div class='container'><h1 class='display-3 fw-bold text-gradient'>Ciptakan Dunia Sunda Anda</h1><p class='lead'>SUNDAVERSE: Pustaka digital interaktif untuk pembuat film dan konten.</p><a href='generator.html' class='btn btn-warning btn-lg rounded-pill px-5'>Mulai Sekarang</a></div></header>
+        // Firebase Configuration (DO NOT CHANGE)
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/main.js"></script>
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        setLogLevel('debug'); // Untuk debugging
+
+        // Language Translation Data
+        const translations = {
+            id: {
+                "nav-home": "Beranda",
+                "nav-features": "Fitur",
+                "nav-assistant": "Asisten AI",
+                "nav-generator": "Generator",
+                "nav-script": "Lembar Kerja Naskah",
+                "nav-storyboard": "Storyboard Visual",
+                "nav-audio": "Audio/Musik",
+                "nav-video": "Video",
+                "nav-script-analysis": "Analisis Naskah",
+                "nav-projects": "Proyek Saya",
+                "nav-legend": "Pustaka Legenda",
+                "nav-resources": "Sumber Daya",
+                "nav-crew": "Pustaka Kru & Aktor",
+                "nav-contact": "Kontak",
+                "hero-title": "Ciptakan Dunia Sunda Anda",
+                "hero-subtitle": "SUNDAVERSE: Pustaka digital interaktif yang memadukan mitos, arsitektur, musik, dan atmosfer Sunda untuk para pembuat film dan konten.",
+                "hero-cta": "Mulai Sekarang",
+                "features-title": "Fitur Unggulan",
+                "feat-ai-title": "Kecerdasan AI",
+                "feat-ai-desc": "Menggunakan model bahasa besar untuk menciptakan prompt yang imajinatif dan terperinci.",
+                "feat-web-title": "Pencarian Web Dinamis",
+                "feat-web-desc": "Menarik data dari web, berita, dan media sosial untuk prompt yang relevan dan terkini.",
+                "feat-culture-title": "Konten Budaya Otentik",
+                "feat-culture-desc": "Fokus pada mitos, arsitektur, musik, dan atmosfer asli Sunda untuk kekayaan visual.",
+                "ai-title": "Asisten AI SUNDAVERSE",
+                "ai-desc": "Tanya apa saja tentang ide film Anda. Asisten AI kami siap membantu Anda!",
+                "chat-welcome": "Halo! Saya Asisten AI SUNDAVERSE. Saya dapat membantu Anda dengan ide-ide film, riset karakter, lokasi, dan banyak lagi. Apa yang bisa saya bantu hari ini?",
+                "chat-input": "Ketik pesan Anda di sini...",
+                "chat-send-btn": "Kirim",
+                "chat-loading": "Asisten sedang berpikir...",
+                "prompt-generator-title": "Generator Prompt",
+                "user-prompt-label": "Ide Prompt Anda (opsional)",
+                "user-prompt-placeholder": "Ketikkan ide Anda di sini, misalnya 'Pertarungan antara Sangkuriang dan Dayang Sumbi'...",
+                "style-label": "Gaya Visual",
+                "characters-label": "Tokoh/Makhluk Mitos",
+                "setting-label": "Latar/Lokasi",
+                "atmosphere-label": "Atmosfer/Emosi",
+                "music-label": "Musik Latar",
+                "camera-label": "Teknik Kamera",
+                "generate-btn": "Generate Prompt",
+                "copy-btn": "Salin Prompt",
+                "result-title": "Hasil Prompt",
+                "loading-prompt": "Sedang memproses...",
+                "copy-success": "Prompt berhasil disalin!",
+                "id-version": "Versi Indonesia",
+                "en-version": "Versi Inggris (Final)",
+                "prompt-placeholder": "Prompt akan muncul di sini setelah Anda mengklik 'Generate Prompt'...",
+                "prompt-placeholder-en": "Terjemahan prompt ke Bahasa Inggris akan muncul di sini...",
+                "script-title": "Pembuat Lembar Kerja Naskah",
+                "script-desc": "Tuliskan ide cerita singkat dan genre, dan biarkan SUNDAVERSE mengubahnya menjadi lembar kerja naskah yang terperinci.",
+                "script-idea-label": "Ide Cerita Singkat",
+                "script-idea-placeholder": "Contoh: Sangkuriang kembali ke Gunung Tangkuban Parahu untuk menantang ayahnya.",
+                "script-genre-label": "Genre",
+                "generate-script-btn": "Buat Lembar Kerja Naskah",
+                "script-result-title": "Hasil Lembar Kerja",
+                "loading-script": "Sedang membuat lembar kerja naskah...",
+                "storyboard-title": "Pembuat Storyboard Visual",
+                "storyboard-desc": "Masukkan ide adegan singkat dan biarkan SUNDAVERSE mengubahnya menjadi serangkaian sketsa storyboard visual.",
+                "scene-idea-label": "Ide Adegan Singkat",
+                "scene-idea-placeholder": "Contoh: Sangkuriang melarikan diri dari Dayang Sumbi di atas bukit Tangkuban Parahu.",
+                "generate-storyboard-btn": "Buat Storyboard Visual",
+                "storyboard-result-title": "Hasil Storyboard",
+                "loading-storyboard": "Sedang membuat storyboard... Ini mungkin membutuhkan waktu beberapa saat.",
+                "audio-title": "Pembuat Audio/Musik",
+                "audio-desc": "Tuliskan ide adegan singkat Anda di bawah ini, dan biarkan SUNDAVERSE menciptakan audio latar yang sesuai.",
+                "audio-idea-label": "Ide Adegan Singkat",
+                "audio-idea-placeholder": "Contoh: Sangkuriang melarikan diri dari Dayang Sumbi di atas bukit Tangkuban Parahu.",
+                "generate-audio-btn": "Buat Audio Latar",
+                "audio-result-title": "Hasil Audio",
+                "loading-audio": "Sedang membuat audio... Ini mungkin membutuhkan waktu beberapa saat.",
+                "video-title": "Pembuat Video",
+                "video-desc": "Masukkan ide adegan singkat Anda di bawah ini, dan biarkan SUNDAVERSE menciptakan klip video yang sesuai.",
+                "video-idea-label": "Ide Adegan Singkat",
+                "video-idea-placeholder": "Contoh: Pertarungan antara Ciung Wanara dan Prabu Barma Wijaya di alun-alun kerajaan.",
+                "generate-video-btn": "Buat Video",
+                "video-result-title": "Hasil Video",
+                "loading-video": "Sedang membuat video... Ini mungkin membutuhkan waktu beberapa saat.",
+                "script-analysis-title": "Analisis Naskah AI",
+                "script-analysis-desc": "Tempelkan naskah Anda di bawah ini dan biarkan AI menganalisisnya. Anda akan menerima umpan balik tentang alur cerita, karakter, dan prediksi durasi.",
+                "script-analysis-input-label": "Naskah Anda",
+                "script-analysis-input-placeholder": "Tempelkan naskah film Anda di sini...",
+                "analyze-script-btn": "Analisis Naskah",
+                "script-analysis-result-title": "Hasil Analisis",
+                "loading-analysis": "Sedang menganalisis naskah...",
+                "projects-title": "Manajer Proyek Pribadi",
+                "projects-desc": "Buat dan kelola proyek film Anda di sini. Simpan prompt, naskah, dan aset visual untuk setiap film.",
+                "create-project-title": "Buat Proyek Baru",
+                "new-project-placeholder": "Nama proyek, contoh: 'Film Ciung Wanara'",
+                "create-project-btn": "Buat",
+                "my-projects-title": "Proyek Saya",
+                "loading-projects": "Memuat proyek...",
+                "legend-title": "Pustaka Legenda",
+                "loading-story": "Memuat cerita...",
+                "load-story-btn": "Muat Cerita Lain",
+                "resources-title": "Sumber Daya untuk Filmmaker",
+                "loading-resources": "Memuat sumber daya...",
+                "crew-title": "Pustaka Kru & Aktor",
+                "loading-crew": "Memuat profil...",
+                "contact-title": "Kontak",
+                "contact-desc": "Untuk pertanyaan, kolaborasi, atau masukan, silakan hubungi saya melalui media sosial di bawah ini.",
+                "footer-rights": "Hak cipta dilindungi.",
+                "footer-maker": "Dibuat oleh SMKN 1 Gunungsindur - Kab. Bogor",
+                "footer-userid-label": "User ID Anda:",
+                "save-to-project-label": "Simpan ke Proyek:",
+                "save-btn": "Simpan",
+                "select-style-placeholder": "Pilih Gaya...",
+                "select-character-placeholder": "Pilih Tokoh...",
+                "select-setting-placeholder": "Pilih Latar...",
+                "select-atmosphere-placeholder": "Pilih Atmosfer...",
+                "select-music-placeholder": "Pilih Musik...",
+                "select-camera-placeholder": "Pilih Teknik...",
+                "select-genre-placeholder": "Pilih Genre...",
+            },
+            su: {
+                "nav-home": "Tepas",
+                "nav-features": "Fitur",
+                "nav-assistant": "Asisten AI",
+                "nav-generator": "Generator",
+                "nav-script": "Lambaran Gawé Naskah",
+                "nav-storyboard": "Storyboard Visual",
+                "nav-audio": "Sora/Musik",
+                "nav-video": "Video",
+                "nav-script-analysis": "Analisis Naskah",
+                "nav-projects": "Proyék Abdi",
+                "nav-legend": "Pustaka Dongéng",
+                "nav-resources": "Sumber Daya",
+                "nav-crew": "Pustaka Kru & Aktor",
+                "nav-contact": "Kontak",
+                "hero-title": "Jieun Dunya Sunda Anjeun",
+                "hero-subtitle": "SUNDAVERSE: Pustaka digital interaktif anu ngagabungkeun mitos, arsitektur, musik, sareng atmosfir Sunda pikeun para pembuat film sareng konten.",
+                "hero-cta": "Mimitian Ayeuna",
+                "features-title": "Fitur Unggul",
+                "feat-ai-title": "Kacerdasan AI",
+                "feat-ai-desc": "Ngagunakeun modél basa gedé pikeun nyiptakeun prompt anu imajinatif sareng rinci.",
+                "feat-web-title": "Néangan Web Dinamis",
+                "feat-web-desc": "Narik data ti web, warta, sareng média sosial pikeun prompt anu relevan sareng panganyarna.",
+                "feat-culture-title": "Konten Budaya Otentik",
+                "feat-culture-desc": "Fokus kana mitos, arsitektur, musik, sareng atmosfir asli Sunda pikeun kakayaan visual.",
+                "ai-title": "Asisten AI SUNDAVERSE",
+                "ai-desc": "Tanya naon waé ngeunaan ideu film anjeun. Asisten AI kami siap ngabantu anjeun!",
+                "chat-welcome": "Halo! Abdi Asisten AI SUNDAVERSE. Abdi tiasa ngabantu anjeun ku ideu film, riset karakter, lokasi, sareng seueur deui. Aya anu tiasa abdi bantu dinten ieu?",
+                "chat-input": "Ketik pesen anjeun di dieu...",
+                "chat-send-btn": "Kirim",
+                "chat-loading": "Asisten nuju mikir...",
+                "prompt-generator-title": "Generator Prompt",
+                "user-prompt-label": "Ide Prompt Anjeun (opsional)",
+                "user-prompt-placeholder": "Ketikkeun ide anjeun di dieu, contona 'Pertarungan antara Sangkuriang sareng Dayang Sumbi'...",
+                "style-label": "Gaya Visual",
+                "characters-label": "Tokoh/Makhluk Mitos",
+                "setting-label": "Latar/Lokasi",
+                "atmosphere-label": "Atmosfir/Emosi",
+                "music-label": "Musik Latar",
+                "camera-label": "Téknik Kaméra",
+                "generate-btn": "Jieun Prompt",
+                "copy-btn": "Salin Prompt",
+                "result-title": "Hasil Prompt",
+                "loading-prompt": "Nuju ngolah...",
+                "copy-success": "Prompt hasil disalin!",
+                "id-version": "Vérsi Indonesia",
+                "en-version": "Vérsi Inggris (Final)",
+                "prompt-placeholder": "Prompt bakal muncul di dieu saatos anjeun ngaklik 'Jieun Prompt'...",
+                "prompt-placeholder-en": "Tarjamahan prompt ka Basa Inggris bakal muncul di dieu...",
+                "script-title": "Jieunan Lambaran Gawé Naskah",
+                "script-desc": "Tuliskeun ideu carita singket sareng genre, sareng kersakeun SUNDAVERSE ngarobahna janten lambaran gawé naskah anu rinci.",
+                "script-idea-label": "Ide Carita Singket",
+                "script-idea-placeholder": "Contona: Sangkuriang balik ka Gunung Tangkuban Parahu pikeun nangtang ramana.",
+                "script-genre-label": "Genre",
+                "generate-script-btn": "Jieun Lambaran Gawé Naskah",
+                "script-result-title": "Hasil Lambaran Gawé",
+                "loading-script": "Nuju nyieun lambaran gawé naskah...",
+                "storyboard-title": "Jieunan Storyboard Visual",
+                "storyboard-desc": "Lebetkeun ideu adegan singket sareng kersakeun SUNDAVERSE ngarobahna janten séri skétsa storyboard visual.",
+                "scene-idea-label": "Ide Adegan Singket",
+                "scene-idea-placeholder": "Contona: Sangkuriang kabur ti Dayang Sumbi di luhur bukit Tangkuban Parahu.",
+                "generate-storyboard-btn": "Jieun Storyboard Visual",
+                "storyboard-result-title": "Hasil Storyboard",
+                "loading-storyboard": "Nuju nyieun storyboard... Ieu tiasa butuh sababaraha waktos.",
+                "audio-title": "Jieunan Sora/Musik",
+                "audio-desc": "Tuliskeun ideu adegan anjeun di handap, sareng kersakeun SUNDAVERSE nyiptakeun audio latar anu pas.",
+                "audio-idea-label": "Ide Adegan Singket",
+                "audio-idea-placeholder": "Contona: Sangkuriang kabur ti Dayang Sumbi di luhur bukit Tangkuban Parahu.",
+                "generate-audio-btn": "Jieun Audio Latar",
+                "audio-result-title": "Hasil Sora",
+                "loading-audio": "Nuju nyieun sora... Ieu tiasa butuh sababaraha waktos.",
+                "video-title": "Jieunan Video",
+                "video-desc": "Lebetkeun ideu adegan singket anjeun di handap, sareng kersakeun SUNDAVERSE nyiptakeun klip video anu pas.",
+                "video-idea-label": "Ide Adegan Singket",
+                "video-idea-placeholder": "Contona: Pertarungan antara Ciung Wanara sareng Prabu Barma Wijaya di alun-alun karajaan.",
+                "generate-video-btn": "Jieun Video",
+                "video-result-title": "Hasil Video",
+                "loading-video": "Nuju nyieun video... Ieu tiasa butuh sababaraha waktos.",
+                "script-analysis-title": "Analisis Naskah AI",
+                "script-analysis-desc": "Lebetkeun naskah anjeun di handap sareng kersakeun AI nganalisisna. Anjeun bakal nampi eupan balik ngeunaan alur carita, karakter, sareng prediksi durasi.",
+                "script-analysis-input-label": "Naskah Anjeun",
+                "script-analysis-input-placeholder": "Tempelkeun naskah film anjeun di dieu...",
+                "analyze-script-btn": "Analisis Naskah",
+                "script-analysis-result-title": "Hasil Analisis",
+                "loading-analysis": "Nuju nganalisis naskah...",
+                "projects-title": "Manajer Proyék Pribadi",
+                "projects-desc": "Jieun sareng atur proyék film anjeun di dieu. Simpen prompt, naskah, sareng aset visual pikeun saban film.",
+                "create-project-title": "Jieun Proyék Anyar",
+                "new-project-placeholder": "Nami proyék, contona: 'Film Ciung Wanara'",
+                "create-project-btn": "Jieun",
+                "my-projects-title": "Proyék Abdi",
+                "loading-projects": "Nuju muka proyék...",
+                "legend-title": "Pustaka Dongéng",
+                "loading-story": "Nuju muka dongéng...",
+                "load-story-btn": "Muat Dongéng Séjén",
+                "resources-title": "Sumber Daya pikeun Filmmaker",
+                "loading-resources": "Nuju muka sumber daya...",
+                "crew-title": "Pustaka Kru & Aktor",
+                "loading-crew": "Nuju muka profil...",
+                "contact-title": "Kontak",
+                "contact-desc": "Pikeun patarosan, kolaborasi, atanapi masukan, mangga hubungi abdi ngalangkungan média sosial di handap ieu.",
+                "footer-rights": "Sadaya hak cipta ditangtayungan.",
+                "footer-maker": "Didamel ku SMKN 1 Gunungsindur - Kab. Bogor",
+                "footer-userid-label": "ID Pamaké Anjeun:",
+                "save-to-project-label": "Simpen ka Proyék:",
+                "save-btn": "Simpen",
+                "select-style-placeholder": "Pilih Gaya...",
+                "select-character-placeholder": "Pilih Tokoh...",
+                "select-setting-placeholder": "Pilih Latar...",
+                "select-atmosphere-placeholder": "Pilih Atmosfir...",
+                "select-music-placeholder": "Pilih Musik...",
+                "select-camera-placeholder": "Pilih Téknik...",
+                "select-genre-placeholder": "Pilih Genre...",
+            }
+        };
+
+        let currentLang = 'id';
+        let currentUserId = null;
+        let userProjects = [];
+
+        function updateUI(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                el.textContent = translations[lang][key];
+            });
+            document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-lang-placeholder');
+                el.placeholder = translations[lang][key];
+            });
+            document.querySelectorAll('[data-lang-options-group]').forEach(selectEl => {
+                const group = selectEl.getAttribute('data-lang-options-group');
+                const options = selectEl.querySelectorAll('option');
+                
+                const optionTranslations = {
+                    visualStyle: {
+                        "Pilih Gaya...": lang === 'su' ? "Pilih Gaya..." : "Pilih Gaya...",
+                        "Realisme Fotografi": "Realisme Fotografi",
+                        "Seni Rupa Tradisional Sunda": "Seni Rupa Tradisional Sunda",
+                        "Gaya Lukisan Tradisional Jawa Barat": "Gaya Lukisan Tradisional Jawa Barat",
+                        "Sinematik Dramatis": "Sinematik Dramatis",
+                        "Fantasi Epik": "Fantasi Epik",
+                        "Retro Klasik": "Retro Klasik",
+                        "Gaya Ghibli": "Gaya Ghibli",
+                        "Sinematik Noir": "Sinematik Noir",
+                        "Anime/Manga Style": "Anime/Manga Style",
+                        "Gaya Fotografi Dokumenter": "Gaya Fotografi Dokumenter",
+                    },
+                    characters: {
+                        "Pilih Tokoh...": "Pilih Tokoh...",
+                        "Ciung Wanara": "Ciung Wanara",
+                        "Sangkuriang": "Sangkuriang",
+                        "Lutung Kasarung": "Lutung Kasarung",
+                        "Nyai Bagendit": "Nyai Bagendit",
+                        "Prabu Siliwangi": "Prabu Siliwangi",
+                        "Kidang Kencana": "Kidang Kencana",
+                        "Nyi Blorong": "Nyi Blorong",
+                        "Ular N'Daun": "Ular N'Daun",
+                        "Siluman Buaya Putih": "Siluman Buaya Putih",
+                        "Kuntilanak": "Kuntilanak",
+                        "Jurig": "Jurig",
+                        "Nyi Roro Kidul": "Nyi Roro Kidul",
+                        "Siluman": "Siluman",
+                        "Maung Siliwangi": "Maung Siliwangi",
+                        "Dewi Sri": "Dewi Sri"
+                    },
+                    setting: {
+                        "Pilih Latar...": "Pilih Latar...",
+                        "Gunung Tangkuban Parahu": "Gunung Tangkuban Parahu",
+                        "Hutan Angker": "Hutan Angker",
+                        "Curug (Air Terjun)": "Curug (Air Terjun)",
+                        "Desa Tradisional Sunda": "Desa Tradisional Sunda",
+                        "Pura": "Pura",
+                        "Sawah Terasering": "Sawah Terasering",
+                        "Kerajaan Galuh": "Karajaan Galuh",
+                        "Telaga Warna": "Telaga Warna",
+                        "Situ Bagendit": "Situ Bagendit",
+                        "Gunung Ciremai": "Gunung Ciremai",
+                        "Sungai Citarum": "Walungan Citarum",
+                        "Hutan Sancang": "Leuweung Sancang",
+                        "Istana Laut Selatan": "Istana Laut Kidul"
+                    },
+                    atmosphere: {
+                        "Pilih Atmosfer...": "Pilih Atmosfir...",
+                        "Misterius dan Magis": "Misterius sareng Magis",
+                        "Damai dan Sakral": "Damai sareng Sakral",
+                        "Penuh Haru dan Melankolis": "Pinuh ku Haru sareng Melankolis",
+                        "Megah dan Penuh Kekuasaan": "Megah sareng Pinuh Kakawasaan",
+                        "Tegang dan Penuh Ancaman": "Tegang sareng Pinuh Ancaman",
+                        "Gembira dan Penuh Warna": "Gumbira sareng Pinuh Warna",
+                        "Mencekam dan Penuh Misteri": "Mencekam sareng Pinuh Misteri",
+                        "Romantis dan Indah": "Romantis sareng Éndah"
+                    },
+                    music: {
+                        "Pilih Musik...": "Pilih Musik...",
+                        "Gamelan Degung": "Gamelan Degung",
+                        "Kacapi Suling": "Kacapi Suling",
+                        "Karinding": "Karinding",
+                        "Rebab dan Seruling": "Rebab sareng Seruling",
+                        "Angklung Udjo": "Angklung Udjo",
+                        "Reak": "Reak",
+                        "Calung": "Calung",
+                        "Degung Rampak": "Degung Rampak",
+                        "Suling Bambu": "Suling Awi"
+                    },
+                    camera: {
+                        "Pilih Teknik...": "Pilih Téknik...",
+                        "Wide Shot Sinematik": "Wide Shot Sinematik",
+                        "Close-Up Dramatis": "Close-Up Dramatis",
+                        "Dolly Zoom": "Dolly Zoom",
+                        "Slow Motion": "Slow Motion",
+                        "Jitter Camera": "Jitter Camera",
+                        "Handheld Camera": "Handheld Camera"
+                    },
+                    scriptGenre: {
+                        "Pilih Genre...": "Pilih Genre...",
+                        "Drama Epik": "Drama Epik",
+                        "Fantasi Petualangan": "Fantasi Petualangan",
+                        "Misteri Thriller": "Misteri Thriller",
+                        "Horor": "Horor",
+                        "Romantis": "Romantis"
+                    }
+                };
+
+                options.forEach(option => {
+                    const originalText = option.value === "" ? options[0].text : option.value;
+                    if (optionTranslations[group] && optionTranslations[group][originalText]) {
+                        option.textContent = translations[lang][`select-${group}-placeholder`] || originalText; // Default to original if not found
+                        option.textContent = optionTranslations[group][originalText];
+                    }
+                });
+            });
+
+            document.getElementById('current-lang-text').textContent = lang.toUpperCase();
+
+            // Note: Dynamic content from Firestore and Chat API is currently not translated.
+            // This is a complex feature that requires a different data structure and API calls.
+            // The story and resource content will remain in the seeded language (Indonesian).
+            // Chat responses from the AI will also be in Indonesian.
+        }
+
+        // Fungsi untuk menunjukan status proses
+        function showStatus(element, message, type = 'info') {
+            const statusDiv = document.getElementById(element);
+            statusDiv.innerHTML = `<div class="alert alert-${type} mt-3 p-2">${message}</div>`;
+        }
+
+        // Function to seed the database with stories and resources if they don't exist
+        async function seedDatabase() {
+            const storiesRef = collection(db, `artifacts/${appId}/public/data/stories`);
+            const resourcesRef = collection(db, `artifacts/${appId}/public/data/filmmaker_resources`);
+            const crewRef = collection(db, `artifacts/${appId}/public/data/profiles`);
+            
+            const storySnapshot = await getDocs(storiesRef);
+            const resourcesSnapshot = await getDocs(resourcesRef);
+            const crewSnapshot = await getDocs(crewRef);
+
+            if (storySnapshot.empty) {
+                const ciungWanaraStory = {
+                    title: "Legenda Ciung Wanara",
+                    story: `
+                        <p>Legenda Ciung Wanara adalah salah satu cerita rakyat paling terkenal dari Jawa Barat, yang menceritakan asal-usul Kerajaan Galuh dan Kerajaan Sunda. Kisah ini sarat dengan intrik, keadilan, dan takdir yang mempertemukan seorang putra raja dengan takdirnya.</p>
+                        <p class="fw-bold mt-4">Kelahiran dan Pengkhianatan</p>
+                        <p>Dahulu kala, hiduplah seorang raja bernama Prabu Barma Wijaya, penguasa Kerajaan Galuh. Ia memiliki dua permaisuri, yaitu Dewi Naganingrum dan Dewi Pangrenyep. Ketika kedua permaisuri sedang hamil, sang raja berjanji bahwa putra pertama yang lahir akan menjadi penerus takhtanya. Janji ini membuat Dewi Pangrenyep iri dan berencana untuk menyingkirkan anak dari Dewi Naganingrum.</p>
+                        <p>Dewi Naganingrum melahirkan terlebih dahulu, namun ia tidak melahirkan bayi manusia, melainkan seekor monyet. Dewi Pangrenyep mengambil kesempatan ini. Ia menukar bayi Dewi Naganingrum yang masih merah dengan seekor anjing, lalu membuang bayi tersebut ke sungai dalam sebuah peti yang hanyut. Bayi Dewi Naganingrum yang sesungguhnya selamat dan ditemukan oleh seorang dukun sakti bernama Aki Balangantrang. Bayi itu diberi nama Ciung Wanara, yang berarti "seekor monyet yang cerdas" karena ia ditemukan bersama seekor monyet.</p>
+                        <p class="fw-bold mt-4">Masa Kecil dan Takdir</p>
+                        <p>Ciung Wanara tumbuh menjadi pemuda yang gagah dan cerdas. Suatu hari, ia menantang ayam jago milik Aki Balangantrang untuk diadu dengan ayam jago dari Kerajaan Galuh. Dalam pertandingan itu, ayam jago Ciung Wanara berhasil mengalahkan ayam jago Raja. Hal ini menarik perhatian Prabu Barma Wijaya, yang kemudian mengetahui kebenaran tentang siapa Ciung Wanara sesungguhnya.</p>
+                        <p>Prabu Barma Wijaya merasa sangat bersalah atas perbuatannya. Ia akhirnya mengakui Ciung Wanara sebagai putranya dan menyerahkan takhta Kerajaan Galuh kepadanya. Setelah naik takhta, Ciung Wanara mengambil tindakan tegas terhadap Dewi Pangrenyep dan pengikutnya, yang telah berbuat jahat kepadanya dan ibunya.</p>
+                        <p class="fw-bold mt-4">Perselisihan dan Pembagian Kerajaan</p>
+                        <p>Setelah menguasai Kerajaan Galuh, Ciung Wanara membangun sebuah kerajaan baru di sebelah barat. Sementara itu, adiknya, Raden Mundinglaya, mendirikan Kerajaan Sunda. Kedua kerajaan ini seringkali berselisih, namun pada akhirnya mereka bersatu kembali dan hidup damai di bawah kekuasaan Ciung Wanara.</p>
+                        <p>Legenda Ciung Wanara mengajarkan kita tentang pentingnya keadilan, keberanian, dan takdir. Cerita ini terus diceritakan dari generasi ke generasi sebagai salah satu warisan budaya yang paling berharga dari masyarakat Sunda.</p>
+                    `,
+                    createdAt: new Date()
+                };
+                const nyiBlorongStory = {
+                    title: "Legenda Nyi Blorong",
+                    story: `
+                        <p>Legenda Nyi Blorong adalah kisah mistis yang sangat terkenal di kalangan masyarakat Jawa Barat, khususnya tentang pesugihan. Nyi Blorong digambarkan sebagai sosok wanita cantik bertubuh ular raksasa yang kaya raya dan mampu memberikan harta berlimpah kepada manusia yang mau mengikat perjanjian dengannya.</p>
+                        <p class="fw-bold mt-4">Perjanjian dan Kekayaan</p>
+                        <p>Nyi Blorong adalah pemimpin dari para siluman ular. Ia tinggal di sebuah istana mewah yang tersembunyi di dalam hutan angker. Untuk mendapatkan kekayaan darinya, seseorang harus melakukan ritual pesugihan yang sangat berat. Ritual ini melibatkan persembahan tumbal dan pengorbanan yang tidak sedikit. Sebagai imbalannya, Nyi Blorong akan datang setiap malam Jumat Kliwon dan memberikan koin emas yang berlimpah. Namun, koin-koin ini tidak nyata. Koin itu akan menghilang dan kembali ke istana Nyi Blorong, sehingga membuat perjanjian pesugihan ini tidak pernah bisa diputus.</p>
+                        <p class="fw-bold mt-4">Konsekuensi dan Kutukan</p>
+                        <p>Meskipun Nyi Blorong menawarkan kekayaan yang tak terhingga, perjanjian ini memiliki konsekuensi yang mengerikan. Harta yang didapatkan bersifat semu, hanya bisa digunakan untuk sementara waktu. Selain itu, mereka yang bersekutu dengannya harus rela mengorbankan nyawa orang yang dicintai, atau bahkan nyawa mereka sendiri. Jika perjanjian dilanggar, Nyi Blorong akan murka dan bisa mengambil kembali semua harta yang telah diberikan, bahkan mencabut nyawa orang yang bersekutu dengannya.</p>
+                        <p>Legenda Nyi Blorong berfungsi sebagai peringatan tentang bahaya keserakahan dan godaan untuk mendapatkan kekayaan dengan cara yang tidak halal. Cerita ini mengajarkan bahwa harta benda yang didapatkan dari jalan pintas tidak akan membawa kebahagiaan sejati, justru akan membawa penderitaan dan penyesalan seumur hidup.</p>
+                    `,
+                    createdAt: new Date()
+                };
+                const lutungKasarungStory = {
+                    title: "Legenda Lutung Kasarung",
+                    story: `
+                        <p>Legenda Lutung Kasarung menceritakan tentang perjalananan seorang pangeran yang dikutuk menjadi kera berbulu hitam. Pangeran ini, bernama Pangeran Purbalingga, pergi ke hutan untuk bertapa. Saat ia kembali, ia sudah berubah wujud menjadi kera. Pangeran ini kemudian datang ke Kerajaan Pasundan untuk mencari putri terbaik yang cocok untuk menjadi istrinya. Pada saat yang sama, ia bertemu dengan Putri Purbasari, yang merupakan putri raja yang telah diasingkan oleh kakaknya sendiri. </p>
+                        <p class="fw-bold mt-4">Kisah Purbasari dan Purbararang</p>
+                        <p>Putri Purbasari adalah putri bungsu dari Prabu Tapa Agung, Raja Pasundan. Ia memiliki kakak yang bernama Purbararang, yang iri dengan kecantikan dan kebaikan hati Purbasari. Purbararang berencana untuk menyingkirkan Purbasari dari kerajaan. Ia pun meminta bantuan dari penyihir untuk mengutuk Purbasari dengan penyakit kulit yang mengerikan. Setelah itu, Purbasari diasingkan ke hutan.</p>
+                        <p class="fw-bold mt-4">Pertemuan dengan Lutung Kasarung</p>
+                        <p>Di dalam hutan, Purbasari hidup sendirian. Ia pun bertemu dengan seekor kera yang bernama Lutung Kasarung. Kera ini adalah jelmaan dari Pangeran Purbalingga. Lutung Kasarung sangat baik kepada Purbasari, ia selalu menjaga Purbasari dan membawakan makanan. Setelah beberapa waktu, Lutung Kasarung ingin mengembalikan Purbasari ke kerajaan. Ia pun meminta bantuan dari para dewa untuk mengutuk Purbasari agar kembali cantik. Kutukan itu pun berhasil, Purbasari kembali cantik dan sehat. Setelah itu, Lutung Kasarung pun kembali ke wujud aslinya sebagai Pangeran Purbalingga. Akhirnya, Purbasari dan Pangeran Purbalingga menikah dan hidup bahagia.</p>
+                    `,
+                    createdAt: new Date()
+                };
+
+                const prabuSiliwangiStory = {
+                    title: "Legenda Prabu Siliwangi",
+                    story: `
+                        <p>Prabu Siliwangi adalah raja legendaris dari Kerajaan Sunda. Ia memiliki banyak kisah yang menggambarkan dirinya sebagai raja yang bijaksana, adil, dan sakti. Salah satu kisah yang paling terkenal adalah tentang kemampuannya untuk berinteraksi dengan makhluk gaib, seperti macan tutul dan harimau. </p>
+                        <p class="fw-bold mt-4">Kisah Persahabatan dengan Macan Tutul</p>
+                        <p>Prabu Siliwangi sangat mencintai alam dan binatang. Ia sering pergi ke hutan untuk bertapa. Suatu hari, ia bertemu dengan seekor macan tutul yang ganas dan terluka. Prabu Siliwangi merawat macan tutul itu hingga sembuh. Macan tutul itu pun berterima kasih dan berjanji akan selalu melindungi Prabu Siliwangi dan keturunannya. Sejak saat itu, macan tutul menjadi simbol dari Kerajaan Sunda dan Prabu Siliwangi. Itulah mengapa banyak cerita yang menggambarkan Prabu Siliwangi memiliki macan tutul sebagai pengawal setianya.</p>
+                        <p class="fw-bold mt-4">Kisah Cinta dan Pengkhianatan</p>
+                        <p>Prabu Siliwangi juga memiliki kisah cinta yang tragis dengan seorang putri bernama Nyai Putri Subanglarang. Mereka saling mencintai, tetapi orang tua Nyai Putri Subanglarang tidak menyetujui hubungan mereka. Akhirnya, mereka berdua menikah secara diam-diam. Pernikahan mereka pun tidak diketahui oleh siapa pun kecuali oleh para dewa. Namun, setelah beberapa waktu, orang tua Nyai Putri Subanglarang mengetahui pernikahan mereka. Mereka sangat marah dan mengutuk Prabu Siliwangi dan keturunannya. Kutukan itu pun berhasil, Prabu Siliwangi dan keturunannya pun dikutuk menjadi macan tutul. Itulah mengapa ada beberapa cerita yang menggambarkan Prabu Siliwangi memiliki kemampuan untuk berubah wujud menjadi macan tutul.</p>
+                    `,
+                    createdAt: new Date()
+                };
+
+                await setDoc(doc(storiesRef, "ciung-wanara"), ciungWanaraStory);
+                await setDoc(doc(storiesRef, "nyi-blorong"), nyiBlorongStory);
+                await setDoc(doc(storiesRef, "lutung-kasarung"), lutungKasarungStory);
+                await setDoc(doc(storiesRef, "prabu-siliwangi"), prabuSiliwangiStory);
+                console.log("Cerita legenda berhasil ditambahkan ke Firestore.");
+            }
+
+            if (resourcesSnapshot.empty) {
+                const ciungWanaraResources = {
+                    title: "Ciung Wanara",
+                    type: "character",
+                    description: "Ciung Wanara, simbol keberanian dan kecerdasan, digambarkan sebagai pemuda tangguh dengan fisik atletis. Ia memiliki kulit sawo matang, rambut hitam ikal, dan mata yang memancarkan keteguhan. Visualnya dapat dipengaruhi oleh pakaian tradisional Sunda seperti ikat kepala dan kain sarung, memberikan kesan otentik. Untuk film, karakternya bisa dihiasi dengan tato motif Sunda yang halus, atau aksesori dari alam seperti gelang kayu dan kalung taring. ",
+                    locations: [
+                        { name: "Kerajaan Galuh", notes: "Latar megah dengan arsitektur kerajaan Sunda kuno, didominasi material kayu jati dan batu andesit. Ciptakan pencahayaan dramatis untuk menonjolkan detail pahatan dan ukiran." },
+                        { name: "Hutan", notes: "Hutan yang rimbun dan sakral, penuh dengan pohon-pohon besar yang menjulang. Gunakan pencahayaan 'god rays' yang menembus kanopi hutan untuk menciptakan suasana magis. Lensa wide-angle akan ideal untuk menampilkan skala hutan." }
+                    ]
+                };
+                const lutungKasarungResources = {
+                    title: "Lutung Kasarung",
+                    type: "character",
+                    description: "Lutung Kasarung, perpaduan antara manusia dan kera, memiliki fisik yang kuat dan lincah. Rambutnya hitam, panjang, dan lebat, menutupi sebagian wajahnya yang penuh misteri. Matanya tajam, memancarkan kebijaksanaan dan kesedihan. Visualnya bisa ditekankan pada transisi antara wujud kera dan manusia. Desain kostumnya bisa menggabungkan unsur bulu dan kain, memberikan kesan liar namun anggun. ",
+                    locations: [
+                        { name: "Hutan Kerajaan Pasundan", notes: "Hutan yang asri dan damai, dengan sungai mengalir dan air terjun kecil. Gunakan filter diffuser untuk menciptakan soft focus, memberikan nuansa romantis. Perhatikan detail flora dan fauna lokal untuk otentisitas." },
+                        { name: "Taman Sari", notes: "Area tersembunyi di hutan, tempat Lutung Kasarung bertapa. Ciptakan efek pencahayaan lembut yang berpusat pada tokoh, seperti spot light alami dari celah pepohonan." }
+                    ]
+                };
+
+                const prabuSiliwangiResources = {
+                    title: "Prabu Siliwangi",
+                    type: "character",
+                    description: "Prabu Siliwangi, raja bijaksana yang juga dikenal sebagai 'Maung Siliwangi'. Perwujudannya memancarkan kekuatan dan karisma, dengan postur tubuh tegap dan tatapan mata yang tajam. Ia mengenakan pakaian kebesaran kerajaan Sunda, seperti mahkota, kalung, dan gelang emas. Pada visualisasi macan, ia bisa digambarkan sebagai harimau putih yang sakral dan elegan. Efek visual bisa digunakan untuk menunjukkan transisi antara wujud manusia dan harimau. ",
+                    locations: [
+                        { name: "Kerajaan Sunda", notes: "Sebuah istana yang megah dan berlimpah dengan ornamen-ornamen khas Sunda. Ruangan singgasana yang luas dengan pencahayaan dramatis dan gelap." },
+                        { name: "Cagar Alam Hutan Sancang", notes: "Hutan lebat dan mistis, tempat Prabu Siliwangi bertapa. Gunakan lighting yang minim untuk menciptakan suasana tegang dan misterius." }
+                    ]
+                };
+
+                await setDoc(doc(resourcesRef, "ciung-wanara-resource"), ciungWanaraResources);
+                await setDoc(doc(resourcesRef, "lutung-kasarung-resource"), lutungKasarungResources);
+                await setDoc(doc(resourcesRef, "prabu-siliwangi-resource"), prabuSiliwangiResources);
+                console.log("Sumber daya filmmaker berhasil ditambahkan ke Firestore.");
+            }
+
+            if (crewSnapshot.empty) {
+                const crewProfiles = [
+                    {
+                        name: "Bagas Wirayudha",
+                        role: "Aktor",
+                        specialty: "Seni Bela Diri Tradisional",
+                        bio: "Berpengalaman dalam seni peran laga, khususnya seni bela diri Sunda seperti Maenpo. Cocok untuk peran protagonis yang tangguh.",
+                        image_url: "https://placehold.co/150x150/fde68a/1f2937?text=Bagas",
+                        contact_url: "#"
+                    },
+                    {
+                        name: "Sinta Maharani",
+                        role: "Penata Rias & Efek Visual",
+                        specialty: "Makeup Karakter Fantasi & Horor",
+                        bio: "Menguasai makeup prostetik dan efek khusus untuk karakter mitologi. Ahli dalam menciptakan tampilan 'Jurig' atau 'Siluman'.",
+                        image_url: "https://placehold.co/150x150/fde68a/1f2937?text=Sinta",
+                        contact_url: "#"
+                    },
+                    {
+                        name: "Rizky Firmansyah",
+                        role: "Komposer Musik Latar",
+                        specialty: "Perpaduan Alat Musik Tradisional & Orkestra",
+                        bio: "Menciptakan komposisi musik yang memadukan gamelan degung, suling, dan orkestra modern untuk film fantasi epik.",
+                        image_url: "https://placehold.co/150x150/fde68a/1f2937?text=Rizky",
+                        contact_url: "#"
+                    },
+                    {
+                        name: "Dewi Kirana",
+                        role: "Desainer Kostum",
+                        specialty: "Busana Tradisional & Fantasi",
+                        bio: "Mendesain kostum otentik yang terinspirasi dari busana kerajaan Sunda, dengan sentuhan modern dan fantasi.",
+                        image_url: "https://placehold.co/150x150/fde68a/1f2937?text=Dewi",
+                        contact_url: "#"
+                    }
+                ];
+
+                for (const profile of crewProfiles) {
+                    await setDoc(doc(crewRef), profile);
+                }
+                console.log("Profil kru berhasil ditambahkan ke Firestore.");
+            }
+        }
+
+        // Fungsi untuk memuat satu cerita acak dari Firestore
+        async function loadRandomStory() {
+            const storyContent = document.getElementById('story-content');
+            const loadingIndicator = document.getElementById('loadingStory');
+            const loadBtn = document.getElementById('loadAnotherStoryBtn');
+            
+            loadingIndicator.style.display = 'block';
+            storyContent.innerHTML = '';
+            loadBtn.disabled = true;
+
+            try {
+                const storiesRef = collection(db, `artifacts/${appId}/public/data/stories`);
+                const snapshot = await getDocs(storiesRef);
+                const stories = snapshot.docs.map(doc => doc.data());
+
+                if (stories.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * stories.length);
+                    const randomStory = stories[randomIndex];
+                    storyContent.innerHTML = `
+                        <h3 class="text-warning fw-bold">${randomStory.title}</h3>
+                        <div class="mt-3 fs-6">${randomStory.story}</div>
+                    `;
+                } else {
+                    storyContent.innerHTML = '<p class="text-white-50">Tidak ada legenda yang ditemukan.</p>';
+                }
+            } catch (error) {
+                console.error("Kesalahan saat memuat cerita:", error);
+                storyContent.innerHTML = '<p class="text-danger">Gagal memuat cerita. Silakan coba lagi.</p>';
+            } finally {
+                loadingIndicator.style.display = 'none';
+                loadBtn.disabled = false;
+            }
+        }
+
+        async function loadFilmmakerResources() {
+            const resourcesContent = document.getElementById('filmmaker-resources-content');
+            const loadingIndicator = document.getElementById('loadingResources');
+
+            loadingIndicator.style.display = 'block';
+            resourcesContent.innerHTML = '';
+
+            try {
+                const resourcesRef = collection(db, `artifacts/${appId}/public/data/filmmaker_resources`);
+                const snapshot = await getDocs(resourcesRef);
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    let locationsHtml = '';
+                    if (data.locations) {
+                        data.locations.forEach(loc => {
+                            locationsHtml += `<div class="p-3 mb-2 rounded-lg bg-secondary text-white"><strong>${loc.name}:</strong> ${loc.notes}</div>`;
+                        });
+                    }
+
+                    resourcesContent.innerHTML += `
+                        <div class="card card-sunda p-4 p-md-5 mb-4">
+                            <h3 class="text-warning fw-bold mb-3">${data.title}</h3>
+                            <p>${data.description}</p>
+                            ${data.locations ? `<h4 class="mt-4 text-warning">Lokasi & Suasana</h4>${locationsHtml}` : ''}
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Kesalahan saat memuat sumber daya filmmaker:", error);
+                resourcesContent.innerHTML = '<p class="text-danger">Gagal memuat sumber daya. Silakan coba lagi.</p>';
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        async function loadCrewProfiles() {
+            const crewContent = document.getElementById('crew-content');
+            const loadingIndicator = document.getElementById('loadingCrew');
+            
+            loadingIndicator.style.display = 'block';
+            crewContent.innerHTML = '';
+
+            try {
+                const profilesRef = collection(db, `artifacts/${appId}/public/data/profiles`);
+                const snapshot = await getDocs(profilesRef);
+                
+                snapshot.forEach(doc => {
+                    const profile = doc.data();
+                    const profileCard = `
+                        <div class="card card-sunda p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="${profile.image_url}" class="rounded-circle me-3" alt="${profile.name}" style="width: 60px; height: 60px;">
+                                <div>
+                                    <h5 class="text-warning mb-0">${profile.name}</h5>
+                                    <small class="text-white-50">${profile.role}</small>
+                                </div>
+                            </div>
+                            <p class="text-white-50">${profile.bio}</p>
+                            <p class="text-white-50"><strong>Spesialisasi:</strong> ${profile.specialty}</p>
+                            <a href="${profile.contact_url}" target="_blank" class="btn btn-outline-warning btn-sm rounded-pill mt-2">Hubungi</a>
+                        </div>
+                    `;
+                    crewContent.innerHTML += profileCard;
+                });
+            } catch (error) {
+                console.error("Kesalahan saat memuat profil kru:", error);
+                crewContent.innerHTML = '<p class="text-danger">Gagal memuat profil kru. Silakan coba lagi.</p>';
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        // Functions for Project Dashboard
+        async function createNewProject() {
+            const newProjectNameInput = document.getElementById('newProjectName');
+            const projectName = newProjectNameInput.value.trim();
+            const projectCreateStatus = document.getElementById('projectCreateStatus');
+            
+            if (!projectName) {
+                showStatus('projectCreateStatus', 'Nama proyek tidak boleh kosong!', 'warning');
+                return;
+            }
+
+            if (userProjects.some(p => p.name === projectName)) {
+                showStatus('projectCreateStatus', 'Nama proyek sudah ada. Silakan gunakan nama lain.', 'warning');
+                return;
+            }
+
+            try {
+                const projectsRef = collection(db, `artifacts/${appId}/users/${currentUserId}/projects`);
+                const newProjectDoc = {
+                    name: projectName,
+                    createdAt: new Date(),
+                    content: []
+                };
+                await addDoc(projectsRef, newProjectDoc);
+                newProjectNameInput.value = '';
+                showStatus('projectCreateStatus', `Proyek '${projectName}' berhasil dibuat!`, 'success');
+            } catch (error) {
+                console.error("Error creating new project:", error);
+                showStatus('projectCreateStatus', `Gagal membuat proyek: ${error.message}`, 'danger');
+            }
+        }
+        
+        async function loadUserProjects() {
+            const projectsList = document.getElementById('projectsList');
+            const loadingProjects = document.getElementById('loadingProjects');
+            const videoProjectSelect = document.getElementById('videoProjectSelect');
+
+            projectsList.innerHTML = '';
+            videoProjectSelect.innerHTML = '';
+            loadingProjects.style.display = 'block';
+            userProjects = [];
+
+            if (!currentUserId) {
+                loadingProjects.textContent = 'Silakan masuk untuk melihat proyek Anda.';
+                return;
+            }
+
+            try {
+                const projectsRef = collection(db, `artifacts/${appId}/users/${currentUserId}/projects`);
+                onSnapshot(projectsRef, (snapshot) => {
+                    userProjects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    projectsList.innerHTML = '';
+                    videoProjectSelect.innerHTML = '<option value="">Pilih Proyek</option>';
+                    if (userProjects.length > 0) {
+                        userProjects.forEach(project => {
+                            const projectItem = document.createElement('a');
+                            projectItem.href = '#';
+                            projectItem.className = 'list-group-item list-group-item-action bg-dark text-white border-secondary card-sunda mb-2 rounded-lg';
+                            projectItem.innerHTML = `<h5 class="mb-1">${project.name}</h5><small class="text-white-50">Dibuat: ${project.createdAt.toDate().toLocaleDateString()}</small>`;
+                            projectsList.appendChild(projectItem);
+
+                            const projectOption = document.createElement('option');
+                            projectOption.value = project.id;
+                            projectOption.textContent = project.name;
+                            videoProjectSelect.appendChild(projectOption);
+                        });
+                    } else {
+                        projectsList.innerHTML = '<p class="text-white-50 p-3">Anda belum memiliki proyek.</p>';
+                    }
+                    loadingProjects.style.display = 'none';
+                });
+            } catch (error) {
+                console.error("Error loading user projects:", error);
+                loadingProjects.textContent = 'Gagal memuat proyek.';
+            }
+        }
+
+        // Auth and Firestore Listeners
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserId = user.uid;
+                document.getElementById('userIdDisplay').textContent = currentUserId;
+                await seedDatabase();
+                await loadRandomStory();
+                await loadFilmmakerResources();
+                await loadCrewProfiles();
+                await loadUserProjects();
+            } else {
+                console.log("Tidak ada pengguna yang masuk.");
+                currentUserId = null;
+                document.getElementById('userIdDisplay').textContent = 'N/A';
+            }
+        });
+
+        // Autentikasi anonim atau dengan token
+        if (initialAuthToken) {
+            signInWithCustomToken(auth, initialAuthToken).catch((error) => {
+                console.error("Kesalahan saat masuk dengan token khusus:", error);
+            });
+        } else {
+            signInAnonymously(auth).catch((error) => {
+                console.error("Kesalahan saat masuk anonim:", error);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const promptOutput = document.getElementById('promptOutput');
+            const promptOutputEnglish = document.getElementById('promptOutputEnglish');
+            const userPromptEl = document.getElementById('userPrompt');
+            const notification = document.getElementById('notification');
+            const loadingIndicator = document.getElementById('loading');
+            const loadAnotherStoryBtn = document.getElementById('loadAnotherStoryBtn');
+            const generateScriptBtn = document.getElementById('generateScriptBtn');
+            const scriptIdeaEl = document.getElementById('scriptIdea');
+            const scriptGenreEl = document.getElementById('scriptGenre');
+            const loadingScriptEl = document.getElementById('loadingScript');
+            const scriptOutputContainer = document.getElementById('scriptOutputContainer');
+            const generateShotlistBtn = document.getElementById('generateShotlistBtn');
+            const shotlistOutputContainer = document.getElementById('shotlistOutputContainer');
+            const sceneIdeaEl = document.getElementById('sceneIdea');
+            const loadingShotlistEl = document.getElementById('loadingShotlist');
+            const generateAudioBtn = document.getElementById('generateAudioBtn');
+            const audioOutputContainer = document.getElementById('audioOutputContainer');
+            const audioIdeaEl = document.getElementById('audioIdea');
+            const loadingAudioEl = document.getElementById('loadingAudio');
+            const generateVideoBtn = document.getElementById('generateVideoBtn');
+            const videoOutputContainer = document.getElementById('videoOutputContainer');
+            const videoIdeaEl = document.getElementById('videoIdea');
+            const loadingVideoEl = document.getElementById('loadingVideo');
+            
+            const chatInput = document.getElementById('chatInput');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+            const chatContainer = document.getElementById('chatContainer');
+            const chatLoading = document.getElementById('chatLoading');
+
+            const visualStyleEl = document.getElementById('visualStyle');
+            const charactersEl = document.getElementById('characters');
+            const settingEl = document.getElementById('setting');
+            const atmosphereEl = document.getElementById('atmosphere');
+            const musicEl = document.getElementById('music');
+            const cameraEl = document.getElementById('camera');
+            
+            // New script analysis elements
+            const scriptAnalysisInput = document.getElementById('scriptAnalysisInput');
+            const analyzeScriptBtn = document.getElementById('analyzeScriptBtn');
+            const loadingAnalysis = document.getElementById('loadingAnalysis');
+            const analysisOutputContainer = document.getElementById('analysisOutputContainer');
+
+            // New project dashboard elements
+            const newProjectNameInput = document.getElementById('newProjectName');
+            const createProjectBtn = document.getElementById('createProjectBtn');
+            const projectCreateStatus = document.getElementById('projectCreateStatus');
+            
+            // Language switch event listener
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.addEventListener('click', (event) => {
+                    const lang = event.target.getAttribute('data-lang');
+                    if (lang) {
+                        updateUI(lang);
+                    }
+                });
+            });
+            
+            async function sendMessage() {
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+
+                appendMessage(userMessage, 'user');
+                chatInput.value = '';
+                chatLoading.style.display = 'block';
+                chatInput.disabled = true;
+                chatSendBtn.disabled = true;
+
+                try {
+                    const systemPrompt = "Anda adalah Asisten AI SUNDAVERSE yang ahli dalam bidang pembuatan film dan budaya Sunda. Jawab pertanyaan pengguna dengan cerdas, berikan saran kreatif, dan gunakan pengetahuan Anda tentang film, budaya, dan AI. Jaga respons Anda tetap profesional dan informatif.";
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userMessage }] }],
+                            tools: [{ "google_search": {} }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                        })
+                    });
+
+                    const result = await response.json();
+                    const aiResponse = result?.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, terjadi kesalahan. Silakan coba lagi.";
+                    appendMessage(aiResponse, 'ai');
+
+                } catch (error) {
+                    console.error("Error sending message to AI:", error);
+                    appendMessage("Maaf, terjadi kesalahan saat menghubungi asisten AI. Silakan coba lagi.", 'ai');
+                } finally {
+                    chatLoading.style.display = 'none';
+                    chatInput.disabled = false;
+                    chatSendBtn.disabled = false;
+                    chatInput.focus();
+                }
+            }
+
+            function appendMessage(text, sender) {
+                const messageEl = document.createElement('div');
+                messageEl.className = `chat-message ${sender}`;
+                messageEl.innerText = text;
+                chatContainer.appendChild(messageEl);
+                chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the bottom
+            }
+
+            chatSendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            async function generatePrompt() {
+                loadingIndicator.style.display = 'block';
+                promptOutput.value = '';
+                promptOutputEnglish.value = '';
+                generateBtn.disabled = true;
+
+                const userText = userPromptEl.value.trim();
+                const visualStyle = visualStyleEl.value;
+                const characters = charactersEl.value;
+                const setting = settingEl.value;
+                const atmosphere = atmosphereEl.value;
+                const music = musicEl.value;
+                const camera = cameraEl.value;
+
+                let queryIndonesian = `
+                    **Konsultasi dengan AI:**
+                    Tulis prompt yang sangat detail dan deskriptif untuk film pendek berdasarkan input pengguna, mengintegrasikan pengetahuan dari berbagai AI spesialis:
+                    
+                    * **AI Visual (Midjourney, Leonardo AI)**: Fokus pada pencahayaan, tekstur, detail visual, dan gaya artistik yang kaya. Gunakan kata kunci yang kuat untuk menciptakan gambar berkualitas tinggi (misalnya, 'hyper-realistic', 'cinematic lighting', '8K resolution').
+                    * **AI Naratif (ChatGPT, Sudowrite)**: Kembangkan narasi dari ide dasar menjadi alur cerita yang menarik.
+                    * **AI Sinematik (Runway ML, Google Veo)**: Tambahkan detail teknis seperti jenis kamera, gerakan kamera (misalnya, 'dolly zoom', 'steadicam shot'), dan rasio aspek.
+                    * **AI Audio (Suno AI, Soundraw)**: Deskripsikan suasana musik latar atau efek suara yang mendukung adegan.
+                    
+                    Format prompt:
+                    ---
+                    **Judul Prompt**: [Judul yang menarik dan ringkas]
+                    **Narasi & Ide Utama**: [Pengembangan ide cerita yang detail]
+                    **Gaya Visual & Mood**: [Deskripsi gaya artistik, pencahayaan, palet warna, dan suasana]
+                    **Karakter & Aksi**: [Deskripsi visual karakter dan apa yang mereka lakukan]
+                    **Latar & Lingkungan**: [Deskripsi mendalam tentang lokasi, detail arsitektur atau alam]
+                    **Elemen Sinematik & Audio**: [Instruksi teknis untuk kamera dan musik]
+                    **Kalimat yang Diucapkan**: [Dialog singkat atau monolog (JANGAN DITERJEMAHKAN)]
+                    **Parameter Teknis**: [Misalnya, --ar 16:9 --v 5.2 --s 750]
+                    ---
+
+                    Ide utama dari pengguna: "${userText}".
+                    Pilihan pengguna: Gaya Visual: ${visualStyle}, Tokoh: ${characters}, Latar: ${setting}, Atmosfer: ${atmosphere}, Musik: ${music}, Kamera: ${camera}.
+                    Buat prompt yang kohesif dan detail dari semua informasi di atas.
+                `;
+
+                try {
+                    const systemPromptIndonesian = "Anda adalah SUNDAVERSE AI, sebuah kecerdasan buatan super yang mensintesis data dari berbagai AI spesialis untuk membuat prompt visual dan naratif paling canggih. Tugas Anda adalah mengembangkan ide pengguna menjadi prompt yang sangat detail, kohesif, dan siap digunakan oleh para filmmaker.";
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    // First API call for Indonesian prompt
+                    let responseIndonesian = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: queryIndonesian }] }],
+                            tools: [{ "google_search": {} }],
+                            systemInstruction: { parts: [{ text: systemPromptIndonesian }] },
+                        })
+                    });
+
+                    const maxRetries = 3;
+                    let retries = 0;
+                    while (!responseIndonesian.ok && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        responseIndonesian = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ parts: [{ text: queryIndonesian }] }],
+                                tools: [{ "google_search": {} }],
+                                systemInstruction: { parts: [{ text: systemPromptIndonesian }] },
+                            })
+                        });
+                        retries++;
+                    }
+
+                    if (!responseIndonesian.ok) {
+                        throw new Error(`HTTP error! status: ${responseIndonesian.status}`);
+                    }
+
+                    const resultIndonesian = await responseIndonesian.json();
+                    const promptIndonesianText = resultIndonesian?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (promptIndonesianText) {
+                        promptOutput.value = promptIndonesianText;
+
+                        // Second API call for English translation
+                        const translationQuery = `Terjemahkan prompt berikut ke Bahasa Inggris. JANGAN terjemahkan bagian "Kalimat yang Diucapkan" dan "Parameter Teknis". Jaga format dan struktur promptnya.\n\n${promptIndonesianText}`;
+                        const systemPromptEnglish = "Anda adalah penerjemah profesional. Terjemahkan prompt untuk film/video dari Bahasa Indonesia ke Bahasa Inggris dengan presisi. Jangan terjemahkan frasa 'Kalimat yang Diucapkan' atau 'Parameter Teknis' atau konten di bawahnya.";
+                        
+                        let responseEnglish = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ parts: [{ text: translationQuery }] }],
+                                systemInstruction: { parts: [{ text: systemPromptEnglish }] },
+                            })
+                        });
+
+                        retries = 0;
+                        while (!responseEnglish.ok && retries < maxRetries) {
+                            const delay = Math.pow(2, retries) * 1000;
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            responseEnglish = await fetch(apiUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    contents: [{ parts: [{ text: translationQuery }] }],
+                                    systemInstruction: { parts: [{ text: systemPromptEnglish }] },
+                                })
+                            });
+                            retries++;
+                        }
+
+                        const resultEnglish = await responseEnglish.json();
+                        const promptEnglishText = resultEnglish?.candidates?.[0]?.content?.parts?.[0]?.text;
+                        promptOutputEnglish.value = promptEnglishText || "Gagal menerjemahkan prompt. Silakan coba lagi.";
+
+                    } else {
+                        promptOutput.value = "Gagal membuat prompt. Silakan coba lagi.";
+                        promptOutputEnglish.value = "Terjadi kesalahan.";
+                    }
+
+                } catch (error) {
+                    console.error('Error saat menghubungi API:', error);
+                    const errorMessage = "Terjadi kesalahan. Pastikan koneksi internet Anda stabil atau coba lagi nanti.";
+                    promptOutput.value = errorMessage;
+                    promptOutputEnglish.value = errorMessage;
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    generateBtn.disabled = false;
+                }
+            }
+
+            async function generateScript() {
+                loadingScriptEl.style.display = 'block';
+                scriptOutputContainer.innerHTML = '';
+                generateScriptBtn.disabled = true;
+
+                const idea = scriptIdeaEl.value.trim();
+                const genre = scriptGenreEl.value;
+
+                let scriptQuery = `
+                    Generate a detailed cinematic script breakdown for a short film scene based on the user's idea and genre.
+                    The output must be in JSON format.
+                    The JSON should be an array of objects. Each object represents a "shot" or "scene breakdown" with the following properties (in order):
+                    - "shot": The shot number.
+                    - "timecode_start": The estimated start timecode (format "HH:MM:SS").
+                    - "timecode_end": The estimated end timecode (format "HH:MM:SS").
+                    - "duration_seconds": The duration of the shot in seconds.
+                    - "visual_description": A detailed visual description of what is happening in the scene.
+                    - "audio_music": A description of the background music, sound effects, and audio atmosphere.
+                    - "dialog_narration": The dialogue being spoken or narration.
+                    - "camera_technique": The camera technique used (e.g., 'close-up', 'dolly shot').
+                    - "scene_environment_prompt": A descriptive prompt for the environment, for a generative AI (e.g., 'bamboo forest lit by moonlight, thin smoke drifts').
+                    
+                    Ensure the content is relevant to Sundanese culture.
+                    Scene idea: "${idea}". Genre: "${genre}".
+                    Create at least 3 distinct shots.
+                `;
+
+                try {
+                    const systemPrompt = "Anda adalah penulis skenario dan asisten sutradara profesional. Tugas Anda adalah membuat lembar kerja naskah yang terperinci dan sangat berguna untuk tim produksi. Output harus dalam format JSON yang kohesif.";
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    const payload = {
+                        contents: [{ parts: [{ text: scriptQuery }] }],
+                        tools: [{ "google_search": {} }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        "shot": { "type": "STRING" },
+                                        "timecode_start": { "type": "STRING" },
+                                        "timecode_end": { "type": "STRING" },
+                                        "duration_seconds": { "type": "NUMBER" },
+                                        "visual_description": { "type": "STRING" },
+                                        "audio_music": { "type": "STRING" },
+                                        "dialog_narration": { "type": "STRING" },
+                                        "camera_technique": { "type": "STRING" },
+                                        "scene_environment_prompt": { "type": "STRING" }
+                                    },
+                                    "propertyOrdering": ["shot", "timecode_start", "timecode_end", "duration_seconds", "visual_description", "audio_music", "dialog_narration", "camera_technique", "scene_environment_prompt"]
+                                }
+                            }
+                        }
+                    };
+
+                    let response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const maxRetries = 3;
+                    let retries = 0;
+                    while (!response.ok && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        retries++;
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const rawJson = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    const data = JSON.parse(rawJson);
+
+                    let tableHtml = `
+                        <table class="shotlist-table table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SHOT</th>
+                                    <th>TIMECODE/START</th>
+                                    <th>TIMECODE/END</th>
+                                    <th>DURASI (S)</th>
+                                    <th>DESKRIPSI VISUAL</th>
+                                    <th>AUDIO/MUSIK</th>
+                                    <th>DIALOG/NARASI</th>
+                                    <th>TEKNIK KAMERA</th>
+                                    <th>PROMPT LINGKUNGAN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    data.forEach(item => {
+                        tableHtml += `
+                            <tr>
+                                <td>${item.shot || ''}</td>
+                                <td>${item.timecode_start || ''}</td>
+                                <td>${item.timecode_end || ''}</td>
+                                <td>${item.duration_seconds || ''}</td>
+                                <td>${item.visual_description || ''}</td>
+                                <td>${item.audio_music || ''}</td>
+                                <td>${item.dialog_narration || ''}</td>
+                                <td>${item.camera_technique || ''}</td>
+                                <td>${item.scene_environment_prompt || ''}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHtml += `</tbody></table>`;
+                    scriptOutputContainer.innerHTML = tableHtml;
+                } catch (error) {
+                    console.error('Error saat menghubungi API atau mengurai JSON:', error);
+                    scriptOutputContainer.innerHTML = `<div class="alert alert-danger mt-3">Terjadi kesalahan. Pastikan koneksi internet Anda stabil atau coba lagi nanti.</div>`;
+                } finally {
+                    loadingScriptEl.style.display = 'none';
+                    generateScriptBtn.disabled = false;
+                }
+            }
+
+            async function generateShotlist() {
+                loadingShotlistEl.style.display = 'block';
+                shotlistOutputContainer.innerHTML = '';
+                generateShotlistBtn.disabled = true;
+
+                const idea = sceneIdeaEl.value.trim();
+                if (!idea) {
+                    loadingShotlistEl.style.display = 'none';
+                    generateShotlistBtn.disabled = false;
+                    const warning = document.createElement('div');
+                    warning.className = 'alert alert-warning mt-3';
+                    warning.textContent = 'Ide adegan tidak boleh kosong.';
+                    shotlistOutputContainer.parentNode.insertBefore(warning, shotlistOutputContainer);
+                    setTimeout(() => warning.remove(), 3000);
+                    return;
+                }
+
+                // Step 1: Generate textual descriptions for each shot
+                let textShotlistQuery = `Generate 5 detailed, distinct shot descriptions for a film scene. The scene is about "${idea}". For each shot, provide a clear visual description, including camera angle, lighting, and mood. Format the response as a JSON array of strings, where each string is a prompt for an image generation AI.`;
+                const systemPromptText = "You are a professional film director. Your task is to break down a scene idea into a series of visual shots. Be specific about camera angle, composition, lighting, and action. Each description should be a self-contained visual prompt for an image generation AI like Midjourney or Leonardo AI. Do not use Markdown, just plain text descriptions. The response should be a JSON array of strings.";
+
+                const apiKey = "";
+                const textGenApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    let textResponse = await fetch(textGenApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: textShotlistQuery }] }],
+                            systemInstruction: { parts: [{ text: systemPromptText }] },
+                            generationConfig: {
+                                responseMimeType: "application/json",
+                                responseSchema: {
+                                    type: "ARRAY",
+                                    items: { "type": "STRING" }
+                                }
+                            }
+                        })
+                    });
+
+                    const textResult = await textResponse.json();
+                    const shotDescriptions = JSON.parse(textResult?.candidates?.[0]?.content?.parts?.[0]?.text || "[]");
+
+                    if (!shotDescriptions || shotDescriptions.length === 0) {
+                        shotlistOutputContainer.innerHTML = "Gagal membuat deskripsi shot. Silakan coba lagi.";
+                        return;
+                    }
+
+                    // Step 2: Generate an image for each description
+                    const imageGenApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+                    for (let i = 0; i < shotDescriptions.length; i++) {
+                        const shotPrompt = `Storyboard sketch: ${shotDescriptions[i]}. In the style of a clean, minimalist film sketch. Black and white. Pencil lines.`;
+                        
+                        try {
+                            const imageResponse = await fetch(imageGenApiUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ instances: [{ prompt: shotPrompt }], parameters: { "sampleCount": 1 } })
+                            });
+
+                            const imageResult = await imageResponse.json();
+                            const base64Data = imageResult?.predictions?.[0]?.bytesBase64Encoded;
+
+                            if (base64Data) {
+                                const imageUrl = `data:image/png;base64,${base64Data}`;
+                                const shotHtml = `
+                                    <div class="storyboard-item">
+                                        <h5 class="text-warning">Shot #${i + 1}</h5>
+                                        <a href="${imageUrl}" download="sundaverse_shot_${i + 1}.png">
+                                            <img src="${imageUrl}" alt="Storyboard Shot ${i + 1}">
+                                        </a>
+                                        <p class="text-white-50">${shotDescriptions[i]}</p>
+                                    </div>
+                                `;
+                                shotlistOutputContainer.innerHTML += shotHtml;
+                            } else {
+                                throw new Error("Gagal mendapatkan gambar dari API.");
+                            }
+                        } catch (error) {
+                            console.error(`Error generating image for shot ${i + 1}:`, error);
+                            const errorHtml = `
+                                <div class="storyboard-item">
+                                    <p class="text-danger">Gagal memuat Shot #${i + 1}.</p>
+                                </div>
+                            `;
+                            shotlistOutputContainer.innerHTML += errorHtml;
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Error during shotlist generation:', error);
+                    shotlistOutputContainer.innerHTML = "Terjadi kesalahan. Pastikan koneksi internet Anda stabil atau coba lagi nanti.";
+                } finally {
+                    loadingShotlistEl.style.display = 'none';
+                    generateShotlistBtn.disabled = false;
+                }
+            }
+            
+            async function generateAudio() {
+                loadingAudioEl.style.display = 'block';
+                audioOutputContainer.innerHTML = '';
+                generateAudioBtn.disabled = true;
+
+                const idea = audioIdeaEl.value.trim();
+                if (!idea) {
+                    loadingAudioEl.style.display = 'none';
+                    generateAudioBtn.disabled = false;
+                    const warning = document.createElement('div');
+                    warning.className = 'alert alert-warning mt-3';
+                    warning.textContent = 'Ide adegan tidak boleh kosong.';
+                    audioOutputContainer.parentNode.insertBefore(warning, audioOutputContainer);
+                    setTimeout(() => warning.remove(), 3000);
+                    return;
+                }
+                
+                const queryAudio = `Ciptakan audio musik latar untuk adegan film berikut: "${idea}". Fokus pada suasana epik, misterius, dan sentuhan tradisional Sunda.`;
+                const systemPromptAudio = `Anda adalah komposer film profesional. Tugas Anda adalah menciptakan musik latar yang sesuai dengan deskripsi adegan. Musik harus memiliki suasana yang mendalam dan emosional, menggabungkan alat musik modern dan tradisional Sunda seperti Suling dan Kacapi.`;
+                const apiKey = "";
+                const audioApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                try {
+                    const payload = {
+                        contents: [{ parts: [{ text: queryAudio }] }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: { voiceName: "Iapetus" }
+                                }
+                            }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+                    
+                    let response = await fetch(audioApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const maxRetries = 3;
+                    let retries = 0;
+                    while (!response.ok && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        response = await fetch(audioApiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        retries++;
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const audioPart = result?.candidates?.[0]?.content?.parts?.[0];
+                    if (audioPart && audioPart.inlineData && audioPart.inlineData.data) {
+                        const audioData = audioPart.inlineData.data;
+                        const mimeType = audioPart.inlineData.mimeType;
+                        
+                        // Helper function to convert base64 to ArrayBuffer
+                        const base64ToArrayBuffer = base64 => {
+                            const binary_string = window.atob(base64);
+                            const len = binary_string.length;
+                            const bytes = new Uint8Array(len);
+                            for (let i = 0; i < len; i++) {
+                                bytes[i] = binary_string.charCodeAt(i);
+                            }
+                            return bytes.buffer;
+                        };
+                        
+                        // Helper function to convert PCM to WAV
+                        const pcmToWav = (pcm16, sampleRate) => {
+                            const pcmData = pcm16;
+                            const channelCount = 1;
+                            const numSamples = pcmData.length;
+                            const buffer = new ArrayBuffer(44 + numSamples * 2);
+                            const view = new DataView(buffer);
+                            
+                            // RIFF identifier
+                            writeString(view, 0, 'RIFF');
+                            // file length
+                            view.setUint32(4, 36 + numSamples * 2, true);
+                            // RIFF type
+                            writeString(view, 8, 'WAVE');
+                            // format chunk identifier
+                            view.setUint32(12, 16, true);
+                            // format chunk length
+                            view.setUint32(16, 16, true);
+                            // sample format (1 = PCM)
+                            view.setUint16(20, 1, true);
+                            // channel count
+                            view.setUint16(22, channelCount, true);
+                            // sample rate
+                            view.setUint32(24, sampleRate, true);
+                            // byte rate (sample rate * block align)
+                            view.setUint32(28, sampleRate * 2, true);
+                            // block align (channel count * bytes per sample)
+                            view.setUint16(32, channelCount * 2, true);
+                            // bits per sample
+                            view.setUint16(34, 16, true);
+                            // data chunk identifier
+                            writeString(view, 36, 'data');
+                            // data chunk length
+                            view.setUint32(40, numSamples * 2, true);
+                            
+                            // Write PCM data
+                            let offset = 44;
+                            for (let i = 0; i < numSamples; i++, offset += 2) {
+                                view.setInt16(offset, pcmData[i], true);
+                            }
+                            
+                            return new Blob([view], { type: 'audio/wav' });
+                        };
+                        
+                        const writeString = (view, offset, string) => {
+                            for (let i = 0; i < string.length; i++) {
+                                view.setUint8(offset + i, string.charCodeAt(i));
+                            }
+                        };
+                        
+                        const pcmDataBuffer = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(pcmDataBuffer);
+                        const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                        const wavBlob = pcmToWav(pcm16, sampleRate);
+                        const audioUrl = URL.createObjectURL(wavBlob);
+                        
+                        audioOutputContainer.innerHTML = `
+                            <audio controls class="w-100 rounded-lg">
+                                <source src="${audioUrl}" type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="mt-3 text-center">
+                                <a href="${audioUrl}" download="sundaverse_audio.wav" class="btn btn-outline-warning rounded-pill">
+                                    <i class="fas fa-download me-2"></i>Unduh Audio
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error("Gagal mendapatkan audio dari API.");
+                    }
+                } catch (error) {
+                    console.error('Error saat menghubungi API:', error);
+                    audioOutputContainer.innerHTML = `<div class="alert alert-danger mt-3">Terjadi kesalahan saat membuat audio. Silakan coba lagi.</div>`;
+                } finally {
+                    loadingAudioEl.style.display = 'none';
+                    generateAudioBtn.disabled = false;
+                }
+            }
+
+            async function generateVideo() {
+                loadingVideoEl.style.display = 'block';
+                videoOutputContainer.innerHTML = '';
+                generateVideoBtn.disabled = true;
+
+                const idea = videoIdeaEl.value.trim();
+                if (!idea) {
+                    loadingVideoEl.style.display = 'none';
+                    generateVideoBtn.disabled = false;
+                    const warning = document.createElement('div');
+                    warning.className = 'alert alert-warning mt-3';
+                    warning.textContent = 'Ide adegan tidak boleh kosong.';
+                    videoOutputContainer.parentNode.insertBefore(warning, videoOutputContainer);
+                    setTimeout(() => warning.remove(), 3000);
+                    return;
+                }
+                
+                const queryVideo = `Buat klip video 5 detik yang sinematik dari adegan berikut: "${idea}". Video harus memiliki tone misterius, epik, dan berlatar budaya Sunda.`;
+                const systemPromptVideo = `Anda adalah seorang sutradara dan editor film. Tugas Anda adalah menciptakan klip video pendek yang sinematik, berdasarkan deskripsi adegan yang diberikan. Video harus memiliki kualitas visual yang tinggi, dengan gerakan kamera yang dinamis, pencahayaan yang dramatis, dan gaya yang konsisten. Klip harus berdurasi 5 detik.`;
+                const apiKey = "";
+                const videoApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview:generateContent?key=${apiKey}`;
+
+                try {
+                    const payload = {
+                        contents: [{ parts: [{ text: queryVideo }] }],
+                        generationConfig: {
+                            responseModalities: ["VIDEO"],
+                        },
+                        systemInstruction: { parts: [{ text: systemPromptVideo }] },
+                    };
+
+                    let response = await fetch(videoApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const maxRetries = 3;
+                    let retries = 0;
+                    while (!response.ok && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        response = await fetch(videoApiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        retries++;
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const videoPart = result?.candidates?.[0]?.content?.parts?.[0];
+                    if (videoPart && videoPart.inlineData && videoPart.inlineData.data) {
+                        const videoData = videoPart.inlineData.data;
+                        const mimeType = videoPart.inlineData.mimeType;
+                        
+                        const videoUrl = `data:${mimeType};base64,${videoData}`;
+                        
+                        videoOutputContainer.innerHTML = `
+                            <video controls class="w-100 rounded-lg">
+                                <source src="${videoUrl}" type="${mimeType}">
+                                Your browser does not support the video element.
+                            </video>
+                            <div class="mt-3 text-center">
+                                <a href="${videoUrl}" download="sundaverse_video.mp4" class="btn btn-outline-warning rounded-pill">
+                                    <i class="fas fa-download me-2"></i>Unduh Video
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error("Gagal mendapatkan video dari API.");
+                    }
+                } catch (error) {
+                    console.error('Error saat menghubungi API:', error);
+                    videoOutputContainer.innerHTML = `<div class="alert alert-danger mt-3">Terjadi kesalahan saat membuat video. Silakan coba lagi.</div>`;
+                } finally {
+                    loadingVideoEl.style.display = 'none';
+                    generateVideoBtn.disabled = false;
+                }
+            }
+            
+            async function analyzeScript() {
+                loadingAnalysis.style.display = 'block';
+                analysisOutputContainer.innerHTML = '';
+                analyzeScriptBtn.disabled = true;
+                
+                const scriptText = scriptAnalysisInput.value.trim();
+                if (!scriptText) {
+                    loadingAnalysis.style.display = 'none';
+                    analyzeScriptBtn.disabled = false;
+                    const warning = document.createElement('div');
+                    warning.className = 'alert alert-warning mt-3';
+                    warning.textContent = 'Naskah tidak boleh kosong.';
+                    analysisOutputContainer.parentNode.insertBefore(warning, analysisOutputContainer);
+                    setTimeout(() => warning.remove(), 3000);
+                    return;
+                }
+
+                const analysisQuery = `
+                    Sebagai konsultan naskah AI, analisis naskah film berikut dan berikan umpan balik yang terperinci. Gunakan pengetahuan Anda tentang struktur cerita, pengembangan karakter, dan sinematografi.
+                    
+                    Tugas Anda adalah:
+                    1.  **Analisis Alur Cerita**: Identifikasi alur utama, potensi plot hole, dan saran untuk meningkatkan ketegangan dramatis.
+                    2.  **Analisis Karakter**: Berikan umpan balik tentang motivasi karakter, perkembangan mereka, dan apakah mereka terasa otentik.
+                    3.  **Prediksi Teknis**: Perkirakan durasi adegan (menit) berdasarkan dialog dan deskripsi visual. Berikan juga saran tentang mood visual, pencahayaan, dan teknik kamera yang sesuai.
+                    
+                    Format output Anda harus terstruktur dan mudah dibaca.
+                    
+                    Naskah untuk dianalisis:
+                    ---
+                    ${scriptText}
+                    ---
+                `;
+
+                try {
+                    const systemPrompt = "Anda adalah Analis Naskah AI yang sangat cerdas dan kritis. Tugas Anda adalah memberikan umpan balik konstruktif dan wawasan sinematik untuk naskah yang diberikan oleh pengguna. Gunakan gaya penulisan yang jelas dan terstruktur.";
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: analysisQuery }] }],
+                            tools: [{ "google_search": {} }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                        })
+                    });
+
+                    const result = await response.json();
+                    const analysisText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (analysisText) {
+                        analysisOutputContainer.innerHTML = `<pre class="card card-sunda p-4 p-md-5">${analysisText}</pre>`;
+                    } else {
+                        analysisOutputContainer.innerHTML = `<div class="alert alert-danger mt-3">Gagal menganalisis naskah. Silakan coba lagi.</div>`;
+                    }
+                } catch (error) {
+                    console.error('Error saat menganalisis naskah:', error);
+                    analysisOutputContainer.innerHTML = `<div class="alert alert-danger mt-3">Terjadi kesalahan. Pastikan koneksi internet Anda stabil atau coba lagi nanti.</div>`;
+                } finally {
+                    loadingAnalysis.style.display = 'none';
+                    analyzeScriptBtn.disabled = false;
+                }
+            }
+
+            function copyPrompt() {
+                if (promptOutputEnglish.value.trim() === '') {
+                    return;
+                }
+                
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(promptOutputEnglish.value).then(() => {
+                        showNotification();
+                    }).catch(err => {
+                        console.error('Gagal menyalin teks ke clipboard:', err);
+                        copyFallback();
+                    });
+                } else {
+                    copyFallback();
+                }
+            }
+
+            function copyFallback() {
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = promptOutputEnglish.value;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                try {
+                    document.execCommand('copy');
+                    showNotification();
+                } catch (err) {
+                    console.error('Fallback: Gagal menyalin teks', err);
+                }
+                document.body.removeChild(tempTextarea);
+            }
+
+            function showNotification() {
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+
+            // Event listeners
+            generateBtn.addEventListener('click', generatePrompt);
+            copyBtn.addEventListener('click', copyPrompt);
+            loadAnotherStoryBtn.addEventListener('click', loadRandomStory);
+            generateScriptBtn.addEventListener('click', generateScript);
+            generateShotlistBtn.addEventListener('click', generateShotlist);
+            generateAudioBtn.addEventListener('click', generateAudio);
+            generateVideoBtn.addEventListener('click', generateVideo);
+            analyzeScriptBtn.addEventListener('click', analyzeScript);
+            createProjectBtn.addEventListener('click', createNewProject);
+        });
+    </script>
 </body>
 </html>
