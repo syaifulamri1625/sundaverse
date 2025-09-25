@@ -1,2 +1,2 @@
-# Sundaverse
-Warisan mitologis Sunda dengan teknologi generatif modern
+# SUNDAVERSE
+Website generator prompt berbasis budaya Sunda.
